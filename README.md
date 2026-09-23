@@ -4,6 +4,25 @@ SakuKu adalah aplikasi pengelola keuangan pribadi, hutang-piutang, dan portofoli
 
 ---
 
+## Unduh Aplikasi (Download Shortcuts)
+
+Pilih paket instalasi sesuai dengan sistem operasi yang Anda gunakan:
+
+| Platform | Format Berkas | Keterangan | Tautan Unduh Langsung |
+| :--- | :--- | :--- | :--- |
+| Android | APK (Universal) | Perangkat ponsel / tablet Android | [Unduh SakuKu APK](https://github.com/Great-YUDZZ/SakuKu/releases/latest/download/SakuKu-android.apk) |
+| Windows | ZIP (x64 Portable) | Windows 10 / 11 (64-bit) | [Unduh SakuKu Windows](https://github.com/Great-YUDZZ/SakuKu/releases/latest/download/SakuKu-windows-x64.zip) |
+| Linux | TAR.GZ (x64) | Distribusi Linux (Debian, Ubuntu, Arch, dll.) | [Unduh SakuKu Linux](https://github.com/Great-YUDZZ/SakuKu/releases/latest/download/SakuKu-linux-x64.tar.gz) |
+
+Semua paket biner rilis resmi dan catatan pembaruan dapat diakses langsung pada halaman [GitHub Releases SakuKu](https://github.com/Great-YUDZZ/SakuKu/releases).
+
+### Panduan Singkat Instalasi:
+- **Android:** Unduh berkas APK, buka di ponsel Anda, dan izinkan instalasi dari sumber ini jika diminta sistem.
+- **Windows:** Unduh berkas ZIP, ekstrak isi foldernya, dan jalankan `local_financial_manager.exe`.
+- **Linux:** Unduh berkas TAR.GZ, ekstrak (`tar -xzf SakuKu-linux-x64.tar.gz`), lalu jalankan biner `./local_financial_manager`.
+
+---
+
 ## Fitur Utama
 
 ### 1. Dasbor Analitik & Statistik Interaktif

@@ -42,9 +42,9 @@ SakuKu adalah aplikasi pengelola keuangan pribadi, hutang-piutang, dan portofoli
 
 ---
 
-## Desain: IT-Toolbox Neumorphism Light
+## Desain: Neumorphism Light
 
-SakuKu menerapkan standar desain antarmuka IT-Toolbox Neumorphism Light:
+SakuKu menerapkan standar desain antarmuka Neumorphism Light:
 - **Warna Latar:** Cool Ambient Ice (#EFF4FA) dengan Sidebar (#E8EEF7) dan Kartu Putih Murni (#FFFFFF).
 - **Dual-Layer Shadows:** Kombinasi refleksi cahaya putih (#FFFFFF) di sudut kiri-atas dan bayangan sejuk (#C2D0E2) di sudut kanan-bawah.
 - **Debossed Wells:** Input formulir dan selektor bergaya cekung (inset debossed) #F4F7FB.

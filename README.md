@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="assets/images/logo.png" width="140" alt="SakuKu Logo" />
+</p>
+
 # SakuKu (Pengelola Keuangan & Portofolio)
 
 SakuKu adalah aplikasi pengelola keuangan pribadi, hutang-piutang, dan portofolio investasi multiaset berbasis lokal (offline-first & privacy-focused) yang dibangun menggunakan Flutter dan Dart. Aplikasi ini mengusung arsitektur visual Neumorphism Light (Luminous Frosted Glass over Cool Ambient Ice) yang bersih, presisi, dan responsif di berbagai platform: Linux Desktop, Windows, dan Android.

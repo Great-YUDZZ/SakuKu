@@ -3,7 +3,8 @@ import '../../../../data/repositories/portfolio_repository.dart';
 import '../../../../domain/models/debt_entity.dart';
 import '../../../../domain/models/investment_entity.dart';
 
-export '../../../../data/repositories/portfolio_repository.dart' show PortfolioSummary;
+export '../../../../data/repositories/portfolio_repository.dart'
+    show PortfolioSummary;
 
 class PortfolioViewModel extends ChangeNotifier {
   final PortfolioRepository _repository;

@@ -26,7 +26,8 @@ void main() {
       expect(debt.estimatedMonthlyInterest, equals(1500000));
     });
 
-    test('InvestmentEntity: kalkulasi profit/loss nominal dan persentase ROI', () {
+    test('InvestmentEntity: kalkulasi profit/loss nominal dan persentase ROI',
+        () {
       // Kasus Profit
       final stockInv = InvestmentEntity(
         id: 1,

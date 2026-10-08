@@ -5,17 +5,23 @@ class AppColors {
   AppColors._();
 
   // Backgrounds & Base Surfaces
-  static const Color background = Color(0xFFEFF4FA); // Ethereal cool ice / pearl canvas
+  static const Color background =
+      Color(0xFFEFF4FA); // Ethereal cool ice / pearl canvas
   static const Color backgroundDeep = Color(0xFFE2E8F0);
-  static const Color backgroundSidebar = Color(0xFFE8EEF7); // Soft frosted cool light sidebar
-  static const Color backgroundCard = Color(0xFFFFFFFF); // Luminous pure white card
+  static const Color backgroundSidebar =
+      Color(0xFFE8EEF7); // Soft frosted cool light sidebar
+  static const Color backgroundCard =
+      Color(0xFFFFFFFF); // Luminous pure white card
   static const Color cardSurface = Color(0xFFFFFFFF);
-  static const Color cardInner = Color(0xFFF4F7FB); // Inset well for inputs & secondary blocks
+  static const Color cardInner =
+      Color(0xFFF4F7FB); // Inset well for inputs & secondary blocks
   static const Color cardHover = Color(0xFFDBEAFE); // Soft blue tinted hover
 
   // Neumorphic Dual Shadows (Resting / Convex)
-  static const Color neuDarkShadow = Color(0xFFC2D0E2); // Signature cool slate-blue shadow
-  static const Color neuLightHighlight = Color(0xFFFFFFFF); // Pure white top-left specular highlight
+  static const Color neuDarkShadow =
+      Color(0xFFC2D0E2); // Signature cool slate-blue shadow
+  static const Color neuLightHighlight =
+      Color(0xFFFFFFFF); // Pure white top-left specular highlight
 
   // Inset Shadows (Sunken / Concave)
   static const Color neuInsetDark = Color(0x2694A3B8);

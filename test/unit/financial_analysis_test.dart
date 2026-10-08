@@ -19,7 +19,9 @@ void main() {
       expect(result.netSavings, equals(3000000.0));
     });
 
-    test('Harus mengidentifikasi status Perlu Waspada saat Savings Ratio antara 10% - 19.9%', () {
+    test(
+        'Harus mengidentifikasi status Perlu Waspada saat Savings Ratio antara 10% - 19.9%',
+        () {
       // Pemasukan 10.000.000, Pengeluaran 8.500.000 -> Tabungan 1.500.000 (15%)
       final result = service.analyze(
         totalIncome: 10000000.0,
@@ -31,7 +33,8 @@ void main() {
       expect(result.expenseToIncomeRatio, closeTo(85.0, 0.01));
     });
 
-    test('Harus mengidentifikasi status Zona Kritis saat Savings Ratio < 10%', () {
+    test('Harus mengidentifikasi status Zona Kritis saat Savings Ratio < 10%',
+        () {
       // Pemasukan 10.000.000, Pengeluaran 9.500.000 -> Tabungan 500.000 (5%)
       final result = service.analyze(
         totalIncome: 10000000.0,
@@ -42,7 +45,9 @@ void main() {
       expect(result.savingsRatio, closeTo(5.0, 0.01));
     });
 
-    test('Edge Case: Pemasukan 0 dengan Pengeluaran > 0 wajib menghasilkan Defisit Penuh tanpa DivideByZero', () {
+    test(
+        'Edge Case: Pemasukan 0 dengan Pengeluaran > 0 wajib menghasilkan Defisit Penuh tanpa DivideByZero',
+        () {
       final result = service.analyze(
         totalIncome: 0.0,
         totalExpense: 1500000.0,
@@ -54,7 +59,9 @@ void main() {
       expect(result.expenseToIncomeRatio, isNull);
     });
 
-    test('Edge Case: Pemasukan 0 dan Pengeluaran 0 wajib menampilkan status Pemasukan Belum Tercatat', () {
+    test(
+        'Edge Case: Pemasukan 0 dan Pengeluaran 0 wajib menampilkan status Pemasukan Belum Tercatat',
+        () {
       final result = service.analyze(
         totalIncome: 0.0,
         totalExpense: 0.0,

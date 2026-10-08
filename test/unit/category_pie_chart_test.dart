@@ -43,15 +43,18 @@ void main() {
       expect(totalSweep, closeTo(2 * math.pi, 0.0001));
     });
 
-    test('Algoritma normalisasi sudut dan deteksi irisan pada polar coordinate', () {
+    test('Algoritma normalisasi sudut dan deteksi irisan pada polar coordinate',
+        () {
       // Misal 3 kategori: A (50%), B (30%), C (20%)
       const percentages = [50.0, 30.0, 20.0];
-      final sweeps = percentages.map((p) => (p / 100.0) * (2 * math.pi)).toList();
+      final sweeps =
+          percentages.map((p) => (p / 100.0) * (2 * math.pi)).toList();
 
       int findSegment(double normalizedAngle) {
         double current = 0.0;
         for (int i = 0; i < sweeps.length; i++) {
-          if (normalizedAngle >= current && normalizedAngle < current + sweeps[i]) {
+          if (normalizedAngle >= current &&
+              normalizedAngle < current + sweeps[i]) {
             return i;
           }
           current += sweeps[i];

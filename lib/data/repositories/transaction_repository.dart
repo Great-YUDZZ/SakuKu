@@ -146,7 +146,8 @@ class TransactionRepository {
       TransactionModel.tableName,
       where: whereString,
       whereArgs: whereArgs.isNotEmpty ? whereArgs : null,
-      orderBy: '${TransactionModel.colDate} DESC, ${TransactionModel.colId} DESC',
+      orderBy:
+          '${TransactionModel.colDate} DESC, ${TransactionModel.colId} DESC',
       limit: limit,
       offset: offset,
     );
@@ -154,7 +155,8 @@ class TransactionRepository {
     return maps.map((m) => TransactionModel.fromMap(m)).toList();
   }
 
-  Future<List<TransactionEntity>> getTransactionsByMonth(DateTime monthYear) async {
+  Future<List<TransactionEntity>> getTransactionsByMonth(
+      DateTime monthYear) async {
     final db = await _dbProvider.database;
 
     final startOfMonth = DateTime(monthYear.year, monthYear.month, 1);
@@ -331,7 +333,14 @@ class TransactionRepository {
       final total = ((row['total'] as num?) ?? 0.0).toDouble();
       final count = ((row['count'] as num?) ?? 0).toInt();
 
-      grouped.putIfAbsent(key, () => {'income': 0.0, 'expense': 0.0, 'incomeCount': 0, 'expenseCount': 0});
+      grouped.putIfAbsent(
+          key,
+          () => {
+                'income': 0.0,
+                'expense': 0.0,
+                'incomeCount': 0,
+                'expenseCount': 0
+              });
       if (type == 'income') {
         grouped[key]!['income'] = total;
         grouped[key]!['incomeCount'] = count;
@@ -342,7 +351,20 @@ class TransactionRepository {
     }
 
     final List<TimePointCashFlow> points = [];
-    final monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des'];
+    final monthNames = [
+      'Jan',
+      'Feb',
+      'Mar',
+      'Apr',
+      'Mei',
+      'Jun',
+      'Jul',
+      'Agu',
+      'Sep',
+      'Okt',
+      'Nov',
+      'Des'
+    ];
 
     for (int day = 1; day <= daysInMonth; day++) {
       final dayStr = day.toString().padLeft(2, '0');
@@ -350,7 +372,8 @@ class TransactionRepository {
       final dayKey = '$year-$monthStr-$dayStr';
       final dt = DateTime(year, month, day);
 
-      final data = grouped[dayKey] ?? {'income': 0.0, 'expense': 0.0, 'incomeCount': 0, 'expenseCount': 0};
+      final data = grouped[dayKey] ??
+          {'income': 0.0, 'expense': 0.0, 'incomeCount': 0, 'expenseCount': 0};
       final inc = data['income'] as double;
       final exp = data['expense'] as double;
 
@@ -392,7 +415,14 @@ class TransactionRepository {
       final total = ((row['total'] as num?) ?? 0.0).toDouble();
       final count = ((row['count'] as num?) ?? 0).toInt();
 
-      grouped.putIfAbsent(key, () => {'income': 0.0, 'expense': 0.0, 'incomeCount': 0, 'expenseCount': 0});
+      grouped.putIfAbsent(
+          key,
+          () => {
+                'income': 0.0,
+                'expense': 0.0,
+                'incomeCount': 0,
+                'expenseCount': 0
+              });
       if (type == 'income') {
         grouped[key]!['income'] = total;
         grouped[key]!['incomeCount'] = count;
@@ -403,10 +433,33 @@ class TransactionRepository {
     }
 
     final List<TimePointCashFlow> points = [];
-    final monthShort = ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des'];
+    final monthShort = [
+      'Jan',
+      'Feb',
+      'Mar',
+      'Apr',
+      'Mei',
+      'Jun',
+      'Jul',
+      'Agu',
+      'Sep',
+      'Okt',
+      'Nov',
+      'Des'
+    ];
     final monthFull = [
-      'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni',
-      'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'
+      'Januari',
+      'Februari',
+      'Maret',
+      'April',
+      'Mei',
+      'Juni',
+      'Juli',
+      'Agustus',
+      'September',
+      'Oktober',
+      'November',
+      'Desember'
     ];
 
     for (int m = 1; m <= 12; m++) {
@@ -414,7 +467,8 @@ class TransactionRepository {
       final monthKey = '$year-$mStr';
       final dt = DateTime(year, m, 1);
 
-      final data = grouped[monthKey] ?? {'income': 0.0, 'expense': 0.0, 'incomeCount': 0, 'expenseCount': 0};
+      final data = grouped[monthKey] ??
+          {'income': 0.0, 'expense': 0.0, 'incomeCount': 0, 'expenseCount': 0};
       final inc = data['income'] as double;
       final exp = data['expense'] as double;
 
@@ -454,7 +508,14 @@ class TransactionRepository {
       final total = ((row['total'] as num?) ?? 0.0).toDouble();
       final count = ((row['count'] as num?) ?? 0).toInt();
 
-      grouped.putIfAbsent(key, () => {'income': 0.0, 'expense': 0.0, 'incomeCount': 0, 'expenseCount': 0});
+      grouped.putIfAbsent(
+          key,
+          () => {
+                'income': 0.0,
+                'expense': 0.0,
+                'incomeCount': 0,
+                'expenseCount': 0
+              });
       if (type == 'income') {
         grouped[key]!['income'] = total;
         grouped[key]!['incomeCount'] = count;
@@ -480,7 +541,8 @@ class TransactionRepository {
       final yKey = y.toString();
       final dt = DateTime(y, 1, 1);
 
-      final data = grouped[yKey] ?? {'income': 0.0, 'expense': 0.0, 'incomeCount': 0, 'expenseCount': 0};
+      final data = grouped[yKey] ??
+          {'income': 0.0, 'expense': 0.0, 'incomeCount': 0, 'expenseCount': 0};
       final inc = data['income'] as double;
       final exp = data['expense'] as double;
 

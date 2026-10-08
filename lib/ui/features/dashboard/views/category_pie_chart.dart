@@ -201,12 +201,18 @@ class _CategoryPieChartState extends State<CategoryPieChart> {
                 color: isSelected ? activeColor : AppColors.textSecondary,
               ),
               const SizedBox(width: 5),
-              Text(
-                label,
-                style: TextStyle(
-                  color: isSelected ? activeColor : AppColors.textSecondary,
-                  fontSize: 12,
-                  fontWeight: isSelected ? FontWeight.w700 : FontWeight.w500,
+              Flexible(
+                child: FittedBox(
+                  fit: BoxFit.scaleDown,
+                  child: Text(
+                    label,
+                    style: TextStyle(
+                      color: isSelected ? activeColor : AppColors.textSecondary,
+                      fontSize: 12,
+                      fontWeight:
+                          isSelected ? FontWeight.w700 : FontWeight.w500,
+                    ),
+                  ),
                 ),
               ),
             ],
@@ -233,7 +239,9 @@ class _CategoryPieChartState extends State<CategoryPieChart> {
         mainAxisSize: MainAxisSize.min,
         children: [
           Icon(
-            isExpense ? Icons.receipt_long_outlined : Icons.account_balance_wallet_outlined,
+            isExpense
+                ? Icons.receipt_long_outlined
+                : Icons.account_balance_wallet_outlined,
             size: 40,
             color: AppColors.textMuted.withOpacity(0.6),
           ),
@@ -320,12 +328,16 @@ class _CategoryPieChartState extends State<CategoryPieChart> {
         width: chartSize,
         height: chartSize,
         child: MouseRegion(
-          onHover: (event) => _handlePointerHover(event.localPosition, chartSize, stats),
+          onHover: (event) =>
+              _handlePointerHover(event.localPosition, chartSize, stats),
           onExit: (_) => setState(() => _hoveredIndex = null),
           child: GestureDetector(
-            onPanDown: (details) => _handlePointerHover(details.localPosition, chartSize, stats),
-            onPanUpdate: (details) => _handlePointerHover(details.localPosition, chartSize, stats),
-            onTapUp: (details) => _handlePointerHover(details.localPosition, chartSize, stats),
+            onPanDown: (details) =>
+                _handlePointerHover(details.localPosition, chartSize, stats),
+            onPanUpdate: (details) =>
+                _handlePointerHover(details.localPosition, chartSize, stats),
+            onTapUp: (details) =>
+                _handlePointerHover(details.localPosition, chartSize, stats),
             child: Stack(
               alignment: Alignment.center,
               children: [
@@ -514,7 +526,8 @@ class _CategoryPieChartState extends State<CategoryPieChart> {
                     color: isHovered
                         ? item.category.color.withOpacity(0.09)
                         : Colors.white.withOpacity(0.7),
-                    borderRadius: BorderRadius.circular(AppDimensions.radiusButton),
+                    borderRadius:
+                        BorderRadius.circular(AppDimensions.radiusButton),
                     border: Border.all(
                       color: isHovered
                           ? item.category.color.withOpacity(0.6)
@@ -692,11 +705,15 @@ class _CategoryDonutPainter extends CustomPainter {
 
       // Expansion effect on hovered slice
       final currentRadius = isHovered ? baseRadius + 4.0 : baseRadius;
-      final strokeWidth = isHovered ? (currentRadius - innerRadius + 3) : (currentRadius - innerRadius);
+      final strokeWidth = isHovered
+          ? (currentRadius - innerRadius + 3)
+          : (currentRadius - innerRadius);
       final midRadius = innerRadius + (strokeWidth / 2.0);
 
       linePaint
-        ..color = isHovered ? stat.category.color : stat.category.color.withOpacity(0.92)
+        ..color = isHovered
+            ? stat.category.color
+            : stat.category.color.withOpacity(0.92)
         ..strokeWidth = strokeWidth;
 
       // Draw arc

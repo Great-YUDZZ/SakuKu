@@ -61,7 +61,8 @@ class PortfolioRepository {
       whereArgs.add(status.name);
     }
 
-    final whereString = whereClauses.isNotEmpty ? whereClauses.join(' AND ') : null;
+    final whereString =
+        whereClauses.isNotEmpty ? whereClauses.join(' AND ') : null;
 
     final rows = await db.query(
       DebtModel.tableName,
@@ -116,7 +117,8 @@ class PortfolioRepository {
 
     if (rows.isEmpty) return;
     final existing = DebtModel.fromMap(rows.first).entity;
-    final newRemaining = (existing.remainingAmount - paymentAmount).clamp(0.0, existing.amount);
+    final newRemaining =
+        (existing.remainingAmount - paymentAmount).clamp(0.0, existing.amount);
     final newStatus = newRemaining <= 0 ? DebtStatus.paid : existing.status;
 
     final updated = existing.copyWith(
@@ -176,7 +178,8 @@ class PortfolioRepository {
     );
   }
 
-  Future<void> updateInvestmentCurrentValue(int id, double newCurrentValue) async {
+  Future<void> updateInvestmentCurrentValue(
+      int id, double newCurrentValue) async {
     final db = await _dbProvider.database;
     await db.update(
       InvestmentModel.tableName,

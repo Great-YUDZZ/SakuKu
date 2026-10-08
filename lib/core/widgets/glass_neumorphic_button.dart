@@ -91,7 +91,8 @@ class _GlassNeumorphicButtonState extends State<GlassNeumorphicButton> {
       contentColor = AppColors.textMuted;
       border = Border.all(color: AppColors.borderSubtle);
     } else if (_isPressed || isSelected) {
-      bgColor = isSelected ? widget.variant.tintColor : widget.variant.solidColor;
+      bgColor =
+          isSelected ? widget.variant.tintColor : widget.variant.solidColor;
       contentColor = isSelected
           ? (widget.variant == ButtonVariant.neutral
               ? AppColors.primary
@@ -114,7 +115,9 @@ class _GlassNeumorphicButtonState extends State<GlassNeumorphicButton> {
       bgColor = _isHovered ? AppColors.cardHover : AppColors.cardSurface;
       contentColor = _isHovered ? AppColors.primary : AppColors.textPrimary;
       border = Border.all(
-        color: _isHovered ? AppColors.primary.withOpacity(0.4) : AppColors.borderMedium,
+        color: _isHovered
+            ? AppColors.primary.withOpacity(0.4)
+            : AppColors.borderMedium,
         width: 1.0,
       );
     }
@@ -156,7 +159,8 @@ class _GlassNeumorphicButtonState extends State<GlassNeumorphicButton> {
       child: GestureDetector(
         onTapDown: isEnabled ? (_) => setState(() => _isPressed = true) : null,
         onTapUp: isEnabled ? (_) => setState(() => _isPressed = false) : null,
-        onTapCancel: isEnabled ? () => setState(() => _isPressed = false) : null,
+        onTapCancel:
+            isEnabled ? () => setState(() => _isPressed = false) : null,
         onTap: isEnabled ? widget.onPressed : null,
         child: AnimatedScale(
           scale: _isPressed ? 0.98 : (_isHovered && isEnabled ? 1.01 : 1.0),
@@ -178,7 +182,8 @@ class _GlassNeumorphicButtonState extends State<GlassNeumorphicButton> {
               child: DefaultTextStyle(
                 style: TextStyle(
                   color: contentColor,
-                  fontWeight: isSelected || isSolid ? FontWeight.w700 : FontWeight.w600,
+                  fontWeight:
+                      isSelected || isSolid ? FontWeight.w700 : FontWeight.w600,
                   fontSize: 14,
                 ),
                 child: IconTheme(

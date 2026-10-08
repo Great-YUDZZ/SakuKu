@@ -78,7 +78,9 @@ class _TransactionListViewState extends State<TransactionListView> {
           TextButton(
             onPressed: () => Navigator.of(ctx).pop(false),
             child: const Text('Batal',
-                style: TextStyle(color: AppColors.textSecondary, fontWeight: FontWeight.w600)),
+                style: TextStyle(
+                    color: AppColors.textSecondary,
+                    fontWeight: FontWeight.w600)),
           ),
           ElevatedButton(
             style: ElevatedButton.styleFrom(
@@ -87,7 +89,8 @@ class _TransactionListViewState extends State<TransactionListView> {
             ),
             onPressed: () => Navigator.of(ctx).pop(true),
             child: const Text('Hapus',
-                style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700)),
+                style: TextStyle(
+                    color: Colors.white, fontWeight: FontWeight.w700)),
           ),
         ],
       ),
@@ -117,143 +120,154 @@ class _TransactionListViewState extends State<TransactionListView> {
         ),
       ),
       body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(
-            horizontal: AppDimensions.paddingL,
-            vertical: AppDimensions.paddingM,
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              // Header Title
-              EntranceFader(
-                offset: const Offset(0, -10),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+        child: LayoutBuilder(
+          builder: (context, constraints) {
+            final isMobile = constraints.maxWidth < 600;
+
+            return Padding(
+              padding: EdgeInsets.symmetric(
+                horizontal: isMobile ? 14.0 : AppDimensions.paddingL,
+                vertical: AppDimensions.paddingM,
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  // Header Title
+                  EntranceFader(
+                    offset: const Offset(0, -10),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(
-                          'Riwayat Transaksi',
-                          style: Theme.of(context)
-                              .textTheme
-                              .headlineMedium
-                              ?.copyWith(
-                                color: AppColors.textPrimary,
-                                fontWeight: FontWeight.w800,
-                              ),
-                        ),
-                        const SizedBox(height: 4),
-                        Text(
-                          'Daftar mutasi keuangan yang tersimpan di penyimpanan lokal',
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodyMedium
-                              ?.copyWith(
-                                color: AppColors.textSecondary,
-                              ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Riwayat Transaksi',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .headlineMedium
+                                  ?.copyWith(
+                                    color: AppColors.textPrimary,
+                                    fontWeight: FontWeight.w800,
+                                    fontSize: isMobile ? 20 : null,
+                                  ),
+                            ),
+                            const SizedBox(height: 4),
+                            Text(
+                              'Daftar mutasi keuangan yang tersimpan di penyimpanan lokal',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyMedium
+                                  ?.copyWith(
+                                    color: AppColors.textSecondary,
+                                    fontSize: isMobile ? 12 : null,
+                                  ),
+                            ),
+                          ],
                         ),
                       ],
                     ),
-                  ],
-                ),
-              ),
-              const SizedBox(height: 16),
+                  ),
+                  const SizedBox(height: 16),
 
-              // Search Input & Filter Tabs
-              EntranceFader(
-                delay: const Duration(milliseconds: 60),
-                child: Column(
-                  children: [
-                    GlassNeumorphicInput(
-                      controller: _searchController,
-                      hintText: 'Cari deskripsi atau kategori...',
-                      prefixIcon: const Icon(Icons.search_rounded,
-                          color: AppColors.primary),
-                      suffixIcon: _searchController.text.isNotEmpty
-                          ? IconButton(
-                              icon: const Icon(Icons.clear_rounded,
-                                  color: AppColors.textMuted),
-                              onPressed: () {
-                                _searchController.clear();
-                                _loadData();
-                              },
-                            )
-                          : null,
-                      onChanged: (val) => _loadData(),
-                    ),
-                    const SizedBox(height: 10),
-                    Row(
+                  // Search Input & Filter Tabs
+                  EntranceFader(
+                    delay: const Duration(milliseconds: 60),
+                    child: Column(
                       children: [
-                        _buildFilterButton('Semua', null),
-                        const SizedBox(width: 8),
-                        _buildFilterButton(
-                            'Pengeluaran', TransactionType.expense),
-                        const SizedBox(width: 8),
-                        _buildFilterButton('Pemasukan', TransactionType.income),
+                        GlassNeumorphicInput(
+                          controller: _searchController,
+                          hintText: 'Cari deskripsi atau kategori...',
+                          prefixIcon: const Icon(Icons.search_rounded,
+                              color: AppColors.primary),
+                          suffixIcon: _searchController.text.isNotEmpty
+                              ? IconButton(
+                                  icon: const Icon(Icons.clear_rounded,
+                                      color: AppColors.textMuted),
+                                  onPressed: () {
+                                    _searchController.clear();
+                                    _loadData();
+                                  },
+                                )
+                              : null,
+                          onChanged: (val) => _loadData(),
+                        ),
+                        const SizedBox(height: 10),
+                        Row(
+                          children: [
+                            _buildFilterButton('Semua', null),
+                            const SizedBox(width: 8),
+                            _buildFilterButton(
+                                'Pengeluaran', TransactionType.expense),
+                            const SizedBox(width: 8),
+                            _buildFilterButton(
+                                'Pemasukan', TransactionType.income),
+                          ],
+                        ),
                       ],
                     ),
-                  ],
-                ),
-              ),
-              const SizedBox(height: 16),
+                  ),
+                  const SizedBox(height: 16),
 
-              // Transaction List Content
-              Expanded(
-                child: _isLoading
-                    ? const Center(
-                        child: CircularProgressIndicator(
-                          color: AppColors.primary,
-                        ),
-                      )
-                    : _transactions.isEmpty
-                        ? Center(
-                            child: EntranceFader(
-                              child: Column(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  Icon(
-                                    Icons.receipt_long_rounded,
-                                    size: 56,
-                                    color: AppColors.textMuted.withOpacity(0.4),
-                                  ),
-                                  const SizedBox(height: 12),
-                                  const Text(
-                                    'Belum ada transaksi yang tercatat',
-                                    style: TextStyle(
-                                      color: AppColors.textSecondary,
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w700,
-                                    ),
-                                  ),
-                                  const SizedBox(height: 4),
-                                  const Text(
-                                    'Tekan tombol "Catat Transaksi" untuk memulai',
-                                    style: TextStyle(
-                                      color: AppColors.textMuted,
-                                      fontSize: 13,
-                                    ),
-                                  ),
-                                ],
-                              ),
+                  // Transaction List Content
+                  Expanded(
+                    child: _isLoading
+                        ? const Center(
+                            child: CircularProgressIndicator(
+                              color: AppColors.primary,
                             ),
                           )
-                        : ListView.separated(
-                            itemCount: _transactions.length,
-                            separatorBuilder: (_, __) =>
-                                const SizedBox(height: 8),
-                            itemBuilder: (context, index) {
-                              final item = _transactions[index];
-                              return EntranceFader(
-                                delay: Duration(milliseconds: 25 * (index % 10)),
-                                child: _buildTransactionCard(item),
-                              );
-                            },
-                          ),
+                        : _transactions.isEmpty
+                            ? Center(
+                                child: EntranceFader(
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      Icon(
+                                        Icons.receipt_long_rounded,
+                                        size: 56,
+                                        color: AppColors.textMuted
+                                            .withOpacity(0.4),
+                                      ),
+                                      const SizedBox(height: 12),
+                                      const Text(
+                                        'Belum ada transaksi yang tercatat',
+                                        style: TextStyle(
+                                          color: AppColors.textSecondary,
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w700,
+                                        ),
+                                      ),
+                                      const SizedBox(height: 4),
+                                      const Text(
+                                        'Tekan tombol "Catat Transaksi" untuk memulai',
+                                        style: TextStyle(
+                                          color: AppColors.textMuted,
+                                          fontSize: 13,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              )
+                            : ListView.separated(
+                                itemCount: _transactions.length,
+                                separatorBuilder: (_, __) =>
+                                    const SizedBox(height: 8),
+                                itemBuilder: (context, index) {
+                                  final item = _transactions[index];
+                                  return EntranceFader(
+                                    delay: Duration(
+                                        milliseconds: 25 * (index % 10)),
+                                    child: _buildTransactionCard(item),
+                                  );
+                                },
+                              ),
+                  ),
+                ],
               ),
-            ],
-          ),
+            );
+          },
         ),
       ),
     );
@@ -274,11 +288,14 @@ class _TransactionListViewState extends State<TransactionListView> {
           setState(() => _selectedFilter = type);
           _loadData();
         },
-        child: Text(
-          title,
-          style: TextStyle(
-            fontSize: 13,
-            fontWeight: isSelected ? FontWeight.w700 : FontWeight.w600,
+        child: FittedBox(
+          fit: BoxFit.scaleDown,
+          child: Text(
+            title,
+            style: TextStyle(
+              fontSize: 13,
+              fontWeight: isSelected ? FontWeight.w700 : FontWeight.w600,
+            ),
           ),
         ),
       ),
@@ -342,11 +359,15 @@ class _TransactionListViewState extends State<TransactionListView> {
                           horizontal: 6, vertical: 2),
                     ),
                     const SizedBox(width: 8),
-                    Text(
-                      DateFormatter.formatRelative(item.date),
-                      style: const TextStyle(
-                        color: AppColors.textMuted,
-                        fontSize: 11,
+                    Flexible(
+                      child: Text(
+                        DateFormatter.formatRelative(item.date),
+                        style: const TextStyle(
+                          color: AppColors.textMuted,
+                          fontSize: 11,
+                        ),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
                       ),
                     ),
                   ],
@@ -359,13 +380,17 @@ class _TransactionListViewState extends State<TransactionListView> {
           Column(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-              Text(
-                '$sign ${CurrencyFormatter.format(item.amount)}',
-                style: TextStyle(
-                  color: amountColor,
-                  fontSize: 14.5,
-                  fontWeight: FontWeight.w800,
-                  letterSpacing: -0.2,
+              FittedBox(
+                fit: BoxFit.scaleDown,
+                alignment: Alignment.centerRight,
+                child: Text(
+                  '$sign ${CurrencyFormatter.format(item.amount)}',
+                  style: TextStyle(
+                    color: amountColor,
+                    fontSize: 14.5,
+                    fontWeight: FontWeight.w800,
+                    letterSpacing: -0.2,
+                  ),
                 ),
               ),
               const SizedBox(height: 4),

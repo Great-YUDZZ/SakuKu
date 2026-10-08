@@ -27,7 +27,8 @@ class BackupViewModel extends ChangeNotifier {
             .whereType<File>()
             .where((f) => f.path.endsWith('.json'))
             .toList();
-        files.sort((a, b) => b.lastModifiedSync().compareTo(a.lastModifiedSync()));
+        files.sort(
+            (a, b) => b.lastModifiedSync().compareTo(a.lastModifiedSync()));
         _availableBackups = files;
         notifyListeners();
       }

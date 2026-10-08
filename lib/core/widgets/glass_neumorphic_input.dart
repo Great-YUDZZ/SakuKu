@@ -130,7 +130,9 @@ class _GlassNeumorphicInputState extends State<GlassNeumorphicInput> {
               prefixIcon: widget.prefixIcon != null
                   ? IconTheme(
                       data: IconThemeData(
-                        color: _isFocused ? AppColors.primary : AppColors.textMuted,
+                        color: _isFocused
+                            ? AppColors.primary
+                            : AppColors.textMuted,
                         size: 20,
                       ),
                       child: widget.prefixIcon!,

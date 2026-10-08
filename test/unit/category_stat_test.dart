@@ -4,7 +4,9 @@ import 'package:local_financial_manager/domain/models/transaction_entity.dart';
 
 void main() {
   group('CategoryStat & MonthlySummary Statistics Table', () {
-    test('Kalkulasi CategoryStat menghitung persentase dan rata-rata dengan benar', () {
+    test(
+        'Kalkulasi CategoryStat menghitung persentase dan rata-rata dengan benar',
+        () {
       const stat = CategoryStat(
         category: TransactionCategory.salary,
         type: TransactionType.income,
@@ -22,7 +24,9 @@ void main() {
       expect(stat.averageAmount, equals(3000000.0));
     });
 
-    test('MonthlySummary menyimpan data statistik lengkap pemasukan dan pengeluaran', () {
+    test(
+        'MonthlySummary menyimpan data statistik lengkap pemasukan dan pengeluaran',
+        () {
       const summary = MonthlySummary(
         totalIncome: 10000000.0,
         totalExpense: 6000000.0,
@@ -77,7 +81,8 @@ void main() {
       expect(summary.maxExpense, equals(1500000.0));
       expect(summary.incomeStats.length, equals(2));
       expect(summary.expenseStats.length, equals(1));
-      expect(summary.incomeByCategory[TransactionCategory.salary], equals(7000000.0));
+      expect(summary.incomeByCategory[TransactionCategory.salary],
+          equals(7000000.0));
     });
   });
 }

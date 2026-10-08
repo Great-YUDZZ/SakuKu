@@ -86,7 +86,8 @@ class DebtEntity {
   });
 
   double get paidAmount => (amount - remainingAmount).clamp(0.0, amount);
-  double get paidPercentage => amount > 0 ? (paidAmount / amount) * 100.0 : 100.0;
+  double get paidPercentage =>
+      amount > 0 ? (paidAmount / amount) * 100.0 : 100.0;
 
   int get daysRemaining {
     final now = DateTime.now();
@@ -96,7 +97,8 @@ class DebtEntity {
   }
 
   bool get isPaid => status == DebtStatus.paid || remainingAmount <= 0;
-  bool get isOverdue => !isPaid && (daysRemaining < 0 || status == DebtStatus.overdue);
+  bool get isOverdue =>
+      !isPaid && (daysRemaining < 0 || status == DebtStatus.overdue);
   bool get isDueSoon => !isPaid && !isOverdue && daysRemaining <= 7;
 
   /// Estimasi bunga per bulan (flat)

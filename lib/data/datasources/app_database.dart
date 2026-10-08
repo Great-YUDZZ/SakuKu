@@ -26,7 +26,8 @@ class AppDatabase {
 
   Future<Database> _initDatabase() async {
     // Inisialisasi engine FFI untuk platform desktop (Linux, Windows, macOS)
-    if (!kIsWeb && (Platform.isLinux || Platform.isWindows || Platform.isMacOS)) {
+    if (!kIsWeb &&
+        (Platform.isLinux || Platform.isWindows || Platform.isMacOS)) {
       if (Platform.isLinux) {
         open.overrideFor(OperatingSystem.linux, () {
           try {

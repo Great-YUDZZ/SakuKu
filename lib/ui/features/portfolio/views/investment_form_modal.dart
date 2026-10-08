@@ -75,7 +75,9 @@ class _InvestmentFormModalState extends State<InvestmentFormModal> {
           : '',
     );
     _returnRateController = TextEditingController(
-      text: inv != null && inv.expectedReturnRate > 0 ? inv.expectedReturnRate.toString() : '',
+      text: inv != null && inv.expectedReturnRate > 0
+          ? inv.expectedReturnRate.toString()
+          : '',
     );
     _notesController = TextEditingController(text: inv?.notes ?? '');
   }
@@ -107,7 +109,8 @@ class _InvestmentFormModalState extends State<InvestmentFormModal> {
   Future<void> _pickMaturityDate() async {
     final picked = await showDatePicker(
       context: context,
-      initialDate: _maturityDate ?? DateTime.now().add(const Duration(days: 365)),
+      initialDate:
+          _maturityDate ?? DateTime.now().add(const Duration(days: 365)),
       firstDate: _startDate,
       lastDate: DateTime.now().add(const Duration(days: 365 * 30)),
     );
@@ -130,12 +133,15 @@ class _InvestmentFormModalState extends State<InvestmentFormModal> {
     }
 
     final currentRaw = _currentValueController.text.trim();
-    final currentValue = currentRaw.isNotEmpty ? CurrencyFormatter.parse(currentRaw) : invested;
+    final currentValue =
+        currentRaw.isNotEmpty ? CurrencyFormatter.parse(currentRaw) : invested;
 
     final targetRaw = _targetController.text.trim();
-    final targetAmount = targetRaw.isNotEmpty ? CurrencyFormatter.parse(targetRaw) : null;
+    final targetAmount =
+        targetRaw.isNotEmpty ? CurrencyFormatter.parse(targetRaw) : null;
 
-    final returnRate = double.tryParse(_returnRateController.text.replaceAll(',', '.')) ?? 0.0;
+    final returnRate =
+        double.tryParse(_returnRateController.text.replaceAll(',', '.')) ?? 0.0;
 
     final entity = InvestmentEntity(
       id: widget.initialInvestment?.id,
@@ -150,7 +156,9 @@ class _InvestmentFormModalState extends State<InvestmentFormModal> {
       expectedReturnRate: returnRate,
       startDate: _startDate,
       maturityDate: _maturityDate,
-      notes: _notesController.text.trim().isNotEmpty ? _notesController.text.trim() : null,
+      notes: _notesController.text.trim().isNotEmpty
+          ? _notesController.text.trim()
+          : null,
       createdAt: widget.initialInvestment?.createdAt ?? DateTime.now(),
     );
 
@@ -166,7 +174,8 @@ class _InvestmentFormModalState extends State<InvestmentFormModal> {
       ),
       decoration: const BoxDecoration(
         color: AppColors.background,
-        borderRadius: BorderRadius.vertical(top: Radius.circular(AppDimensions.radiusModal)),
+        borderRadius: BorderRadius.vertical(
+            top: Radius.circular(AppDimensions.radiusModal)),
       ),
       child: SafeArea(
         top: false,
@@ -193,16 +202,23 @@ class _InvestmentFormModalState extends State<InvestmentFormModal> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
-                    widget.initialInvestment == null ? 'Tambah Aset Investasi Baru' : 'Edit Data Investasi',
-                    style: const TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.w800,
-                      color: AppColors.textPrimary,
+                  Expanded(
+                    child: Text(
+                      widget.initialInvestment == null
+                          ? 'Tambah Aset Investasi Baru'
+                          : 'Edit Data Investasi',
+                      style: const TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w800,
+                        color: AppColors.textPrimary,
+                      ),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
                     ),
                   ),
                   IconButton(
-                    icon: const Icon(Icons.close_rounded, size: 20, color: AppColors.textMuted),
+                    icon: const Icon(Icons.close_rounded,
+                        size: 20, color: AppColors.textMuted),
                     onPressed: () => Navigator.of(context).pop(),
                   ),
                 ],
@@ -212,7 +228,10 @@ class _InvestmentFormModalState extends State<InvestmentFormModal> {
               // Category Horizontal Selector
               const Text(
                 'Kategori Instrumen Investasi',
-                style: TextStyle(fontSize: 11, fontWeight: FontWeight.w700, color: AppColors.textSecondary),
+                style: TextStyle(
+                    fontSize: 11,
+                    fontWeight: FontWeight.w700,
+                    color: AppColors.textSecondary),
               ),
               const SizedBox(height: 6),
               SingleChildScrollView(
@@ -226,26 +245,40 @@ class _InvestmentFormModalState extends State<InvestmentFormModal> {
                         onTap: () => setState(() => _category = cat),
                         child: AnimatedContainer(
                           duration: AppDimensions.durationMicro,
-                          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 10, vertical: 6),
                           decoration: BoxDecoration(
-                            color: isSelected ? cat.color.withOpacity(0.15) : AppColors.cardSurface,
-                            borderRadius: BorderRadius.circular(AppDimensions.radiusButton),
+                            color: isSelected
+                                ? cat.color.withOpacity(0.15)
+                                : AppColors.cardSurface,
+                            borderRadius: BorderRadius.circular(
+                                AppDimensions.radiusButton),
                             border: Border.all(
-                              color: isSelected ? cat.color : AppColors.borderMedium,
+                              color: isSelected
+                                  ? cat.color
+                                  : AppColors.borderMedium,
                               width: isSelected ? 1.5 : 1.0,
                             ),
                           ),
                           child: Row(
                             mainAxisSize: MainAxisSize.min,
                             children: [
-                              Icon(cat.icon, size: 14, color: isSelected ? cat.color : AppColors.textSecondary),
+                              Icon(cat.icon,
+                                  size: 14,
+                                  color: isSelected
+                                      ? cat.color
+                                      : AppColors.textSecondary),
                               const SizedBox(width: 5),
                               Text(
                                 cat.label,
                                 style: TextStyle(
-                                  color: isSelected ? cat.color : AppColors.textSecondary,
+                                  color: isSelected
+                                      ? cat.color
+                                      : AppColors.textSecondary,
                                   fontSize: 11.5,
-                                  fontWeight: isSelected ? FontWeight.w800 : FontWeight.w500,
+                                  fontWeight: isSelected
+                                      ? FontWeight.w800
+                                      : FontWeight.w500,
                                 ),
                               ),
                             ],
@@ -292,7 +325,9 @@ class _InvestmentFormModalState extends State<InvestmentFormModal> {
                       keyboardType: TextInputType.number,
                       errorText: _amountError,
                       onChanged: (val) {
-                        if (_amountError != null) setState(() => _amountError = null);
+                        if (_amountError != null) {
+                          setState(() => _amountError = null);
+                        }
                         final numVal = CurrencyFormatter.parse(val);
                         _investedController.value = TextEditingValue(
                           text: CurrencyFormatter.format(numVal),
@@ -301,7 +336,8 @@ class _InvestmentFormModalState extends State<InvestmentFormModal> {
                           ),
                         );
                         if (_currentValueController.text.isEmpty) {
-                          _currentValueController.text = CurrencyFormatter.format(numVal);
+                          _currentValueController.text =
+                              CurrencyFormatter.format(numVal);
                         }
                       },
                     ),
@@ -359,7 +395,8 @@ class _InvestmentFormModalState extends State<InvestmentFormModal> {
                       labelText: 'Estimasi Return (%/thn)',
                       hintText: '0',
                       prefixIcon: const Icon(Icons.percent_rounded),
-                      keyboardType: const TextInputType.numberWithOptions(decimal: true),
+                      keyboardType:
+                          const TextInputType.numberWithOptions(decimal: true),
                     ),
                   ),
                 ],
@@ -375,23 +412,33 @@ class _InvestmentFormModalState extends State<InvestmentFormModal> {
                       children: [
                         const Text(
                           'Tanggal Mulai Investasi',
-                          style: TextStyle(fontSize: 11, fontWeight: FontWeight.w700, color: AppColors.textSecondary),
+                          style: TextStyle(
+                              fontSize: 11,
+                              fontWeight: FontWeight.w700,
+                              color: AppColors.textSecondary),
                         ),
                         const SizedBox(height: 5),
                         GestureDetector(
                           onTap: _pickStartDate,
                           child: Container(
-                            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 10, vertical: 10),
                             decoration: BoxDecoration(
                               color: AppColors.cardInner,
-                              borderRadius: BorderRadius.circular(AppDimensions.radiusInput),
-                              border: Border.all(color: AppColors.borderMedium, width: 1),
+                              borderRadius: BorderRadius.circular(
+                                  AppDimensions.radiusInput),
+                              border: Border.all(
+                                  color: AppColors.borderMedium, width: 1),
                             ),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Text(DateFormatter.formatShort(_startDate), style: const TextStyle(fontSize: 12.5, fontWeight: FontWeight.w700)),
-                                const Icon(Icons.calendar_month_rounded, size: 16, color: AppColors.primary),
+                                Text(DateFormatter.formatShort(_startDate),
+                                    style: const TextStyle(
+                                        fontSize: 12.5,
+                                        fontWeight: FontWeight.w700)),
+                                const Icon(Icons.calendar_month_rounded,
+                                    size: 16, color: AppColors.primary),
                               ],
                             ),
                           ),
@@ -409,12 +456,20 @@ class _InvestmentFormModalState extends State<InvestmentFormModal> {
                           children: [
                             const Text(
                               'Jatuh Tempo / Horizon',
-                              style: TextStyle(fontSize: 11, fontWeight: FontWeight.w700, color: AppColors.textSecondary),
+                              style: TextStyle(
+                                  fontSize: 11,
+                                  fontWeight: FontWeight.w700,
+                                  color: AppColors.textSecondary),
                             ),
                             if (_maturityDate != null)
                               GestureDetector(
-                                onTap: () => setState(() => _maturityDate = null),
-                                child: const Text('Hapus', style: TextStyle(fontSize: 10, color: AppColors.expense, fontWeight: FontWeight.w600)),
+                                onTap: () =>
+                                    setState(() => _maturityDate = null),
+                                child: const Text('Hapus',
+                                    style: TextStyle(
+                                        fontSize: 10,
+                                        color: AppColors.expense,
+                                        fontWeight: FontWeight.w600)),
                               ),
                           ],
                         ),
@@ -422,24 +477,38 @@ class _InvestmentFormModalState extends State<InvestmentFormModal> {
                         GestureDetector(
                           onTap: _pickMaturityDate,
                           child: Container(
-                            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 10, vertical: 10),
                             decoration: BoxDecoration(
                               color: AppColors.cardInner,
-                              borderRadius: BorderRadius.circular(AppDimensions.radiusInput),
-                              border: Border.all(color: AppColors.borderMedium, width: 1),
+                              borderRadius: BorderRadius.circular(
+                                  AppDimensions.radiusInput),
+                              border: Border.all(
+                                  color: AppColors.borderMedium, width: 1),
                             ),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Text(
-                                  _maturityDate != null ? DateFormatter.formatShort(_maturityDate!) : 'Bebas / Fleksibel',
-                                  style: TextStyle(
-                                    fontSize: 12.5,
-                                    fontWeight: FontWeight.w700,
-                                    color: _maturityDate != null ? AppColors.textPrimary : AppColors.textMuted,
+                                Expanded(
+                                  child: Text(
+                                    _maturityDate != null
+                                        ? DateFormatter.formatShort(
+                                            _maturityDate!)
+                                        : 'Bebas / Fleksibel',
+                                    style: TextStyle(
+                                      fontSize: 12.5,
+                                      fontWeight: FontWeight.w700,
+                                      color: _maturityDate != null
+                                          ? AppColors.textPrimary
+                                          : AppColors.textMuted,
+                                    ),
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
                                   ),
                                 ),
-                                const Icon(Icons.event_available_rounded, size: 16, color: AppColors.primary),
+                                const SizedBox(width: 4),
+                                const Icon(Icons.event_available_rounded,
+                                    size: 16, color: AppColors.primary),
                               ],
                             ),
                           ),

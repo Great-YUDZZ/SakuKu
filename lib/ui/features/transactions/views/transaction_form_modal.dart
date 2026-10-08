@@ -14,7 +14,8 @@ class TransactionFormModal extends StatefulWidget {
 
   const TransactionFormModal({super.key, required this.onSaved});
 
-  static Future<void> show(BuildContext context, {required VoidCallback onSaved}) {
+  static Future<void> show(BuildContext context,
+      {required VoidCallback onSaved}) {
     return showModalBottomSheet(
       context: context,
       isScrollControlled: true,
@@ -250,9 +251,8 @@ class _TransactionFormModalState extends State<TransactionFormModal> {
                               ? cat.color.withOpacity(0.16)
                               : AppColors.cardInner,
                           border: Border.all(
-                            color: isSelected
-                                ? cat.color
-                                : AppColors.borderMedium,
+                            color:
+                                isSelected ? cat.color : AppColors.borderMedium,
                             width: isSelected ? 1.5 : 1.0,
                           ),
                           boxShadow: isSelected
@@ -352,7 +352,8 @@ class _TransactionFormModalState extends State<TransactionFormModal> {
                               content: Text(
                                 'Transaksi ${CurrencyFormatter.format(_viewModel.amount)} berhasil dicatat!',
                                 style: const TextStyle(
-                                    color: Colors.white, fontWeight: FontWeight.w600),
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w600),
                               ),
                             ),
                           );

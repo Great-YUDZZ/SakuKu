@@ -62,8 +62,7 @@ class FinancialAnalysisService {
           'Alokasi tabungan di bawah target ideal 20%. Evaluasi pos pengeluaran sekunder untuk meningkatkan tabungan.';
     } else if (savingsRatio >= 0.0) {
       status = HealthStatus.critical;
-      statusDescription =
-          'Zona Bahaya Tabungan (< 10%)';
+      statusDescription = 'Zona Bahaya Tabungan (< 10%)';
       recommendation =
           'Pengeluaran mendekati 100% pemasukan (${expenseToIncomeRatio.toStringAsFixed(1)}%). Segera rem pengeluaran non-esensial.';
     } else {

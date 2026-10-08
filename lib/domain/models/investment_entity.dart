@@ -3,10 +3,12 @@ import 'package:flutter/material.dart';
 enum InvestmentCategory {
   stocks('Saham', Icons.trending_up_rounded, Color(0xFF2563EB)),
   mutualFund('Reksadana', Icons.pie_chart_rounded, Color(0xFF0284C7)),
-  crypto('Crypto / Aset Kripto', Icons.currency_bitcoin_rounded, Color(0xFF7C3AED)),
+  crypto('Crypto / Aset Kripto', Icons.currency_bitcoin_rounded,
+      Color(0xFF7C3AED)),
   bonds('SBN & Obligasi', Icons.assured_workload_rounded, Color(0xFF4F46E5)),
   gold('Emas & Logam Mulia', Icons.monetization_on_rounded, Color(0xFFD97706)),
-  deposit('Deposito Berjangka', Icons.account_balance_rounded, Color(0xFF059669)),
+  deposit(
+      'Deposito Berjangka', Icons.account_balance_rounded, Color(0xFF059669)),
   other('Lain-lain', Icons.widgets_rounded, Color(0xFF64748B));
 
   final String label;
@@ -34,7 +36,8 @@ class InvestmentEntity {
   final double? targetAmount; // Target capaian nilai
   final double expectedReturnRate; // Ekspektasi imbal hasil tahunan (%)
   final DateTime startDate;
-  final DateTime? maturityDate; // Tenggat waktu horizon / jatuh tempo (jika ada)
+  final DateTime?
+      maturityDate; // Tenggat waktu horizon / jatuh tempo (jika ada)
   final String? notes;
   final DateTime createdAt;
 
@@ -67,7 +70,8 @@ class InvestmentEntity {
     if (maturityDate == null) return null;
     final now = DateTime.now();
     final today = DateTime(now.year, now.month, now.day);
-    final mature = DateTime(maturityDate!.year, maturityDate!.month, maturityDate!.day);
+    final mature =
+        DateTime(maturityDate!.year, maturityDate!.month, maturityDate!.day);
     return mature.difference(today).inDays;
   }
 

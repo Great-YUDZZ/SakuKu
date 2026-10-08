@@ -64,7 +64,8 @@ class _AdaptiveScaffoldState extends State<AdaptiveScaffold> {
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (context, constraints) {
-        final isDesktop = constraints.maxWidth >= AppDimensions.mobileBreakpoint;
+        final isDesktop =
+            constraints.maxWidth >= AppDimensions.mobileBreakpoint;
 
         return Scaffold(
           backgroundColor: AppColors.background,
@@ -141,7 +142,8 @@ class _AdaptiveScaffoldState extends State<AdaptiveScaffold> {
                     ),
                     decoration: BoxDecoration(
                       color: AppColors.primary,
-                      borderRadius: BorderRadius.circular(AppDimensions.radiusPill),
+                      borderRadius:
+                          BorderRadius.circular(AppDimensions.radiusPill),
                       boxShadow: const [
                         BoxShadow(
                           color: Color(0x332563EB),
@@ -174,11 +176,13 @@ class _AdaptiveScaffoldState extends State<AdaptiveScaffold> {
 
                   // Version Pill Badge
                   Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 7, vertical: 3),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 7, vertical: 3),
                     decoration: BoxDecoration(
                       color: const Color(0xFFDBEAFE),
                       borderRadius: BorderRadius.circular(10),
-                      border: Border.all(color: const Color(0xFF93C5FD), width: 1),
+                      border:
+                          Border.all(color: const Color(0xFF93C5FD), width: 1),
                     ),
                     child: const Text(
                       'v1.0.0',
@@ -314,10 +318,12 @@ class _AdaptiveScaffoldState extends State<AdaptiveScaffold> {
               // Theme indicator pill
               Container(
                 width: double.infinity,
-                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
                 decoration: BoxDecoration(
                   color: AppColors.cardSurface,
-                  borderRadius: BorderRadius.circular(AppDimensions.radiusButton),
+                  borderRadius:
+                      BorderRadius.circular(AppDimensions.radiusButton),
                   border: Border.all(color: AppColors.borderMedium, width: 1),
                   boxShadow: const [
                     BoxShadow(
@@ -352,10 +358,12 @@ class _AdaptiveScaffoldState extends State<AdaptiveScaffold> {
               // Active Screen Indicator Pill with Green Dot
               Container(
                 width: double.infinity,
-                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
                 decoration: BoxDecoration(
                   color: const Color(0xFFDCFCE7),
-                  borderRadius: BorderRadius.circular(AppDimensions.radiusButton),
+                  borderRadius:
+                      BorderRadius.circular(AppDimensions.radiusButton),
                   border: Border.all(color: const Color(0xFF86EFAC), width: 1),
                 ),
                 child: Row(
@@ -467,7 +475,9 @@ class _AdaptiveScaffoldState extends State<AdaptiveScaffold> {
                   child: Text(
                     title,
                     style: TextStyle(
-                      color: isSelected ? AppColors.primary : AppColors.textSecondary,
+                      color: isSelected
+                          ? AppColors.primary
+                          : AppColors.textSecondary,
                       fontSize: 13,
                       fontWeight:
                           isSelected ? FontWeight.w700 : FontWeight.w500,
@@ -491,76 +501,89 @@ class _AdaptiveScaffoldState extends State<AdaptiveScaffold> {
     );
   }
 
+  final List<String> _mobileNavLabels = [
+    'Dasbor',
+    'Transaksi',
+    'Portofolio',
+    'Cadangan',
+  ];
+
   Widget _buildMobileBottomBar() {
-    return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-      decoration: BoxDecoration(
-        color: AppColors.cardSurface,
-        borderRadius: BorderRadius.circular(AppDimensions.radiusCard),
-        border: Border.all(color: AppColors.borderMedium, width: 1.0),
-        boxShadow: const [
-          BoxShadow(
-            color: AppColors.neuLightHighlight,
-            offset: Offset(-2, -2),
-            blurRadius: 6,
-          ),
-          BoxShadow(
-            color: AppColors.neuDarkShadow,
-            offset: Offset(2, 4),
-            blurRadius: 12,
-          ),
-        ],
-      ),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 8),
+    return SafeArea(
+      top: false,
+      child: Container(
+        margin: const EdgeInsets.fromLTRB(14, 0, 14, 8),
+        padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 4),
+        decoration: BoxDecoration(
+          color: AppColors.cardSurface,
+          borderRadius: BorderRadius.circular(AppDimensions.radiusCard),
+          border: Border.all(color: AppColors.borderMedium, width: 1.0),
+          boxShadow: const [
+            BoxShadow(
+              color: AppColors.neuLightHighlight,
+              offset: Offset(-2, -2),
+              blurRadius: 6,
+            ),
+            BoxShadow(
+              color: AppColors.neuDarkShadow,
+              offset: Offset(2, 4),
+              blurRadius: 10,
+            ),
+          ],
+        ),
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: List.generate(_navTitles.length, (index) {
+          children: List.generate(_mobileNavLabels.length, (index) {
             final isSelected = _currentIndex == index;
             final icon = _navIcons[index];
-            final title = _navTitles[index];
+            final label = _mobileNavLabels[index];
 
-            return GestureDetector(
-              onTap: () => _onNavigate(index),
-              child: MouseRegion(
-                cursor: SystemMouseCursors.click,
-                child: AnimatedContainer(
-                  duration: AppDimensions.durationMicro,
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: 14, vertical: 8),
-                  decoration: BoxDecoration(
-                    color: isSelected
-                        ? const Color(0xFFDBEAFE)
-                        : Colors.transparent,
-                    borderRadius:
-                        BorderRadius.circular(AppDimensions.radiusButton),
-                    border: Border.all(
-                      color: isSelected
-                          ? const Color(0xFF93C5FD)
-                          : Colors.transparent,
-                      width: 1.0,
-                    ),
-                  ),
-                  child: Row(
+            return Expanded(
+              child: GestureDetector(
+                behavior: HitTestBehavior.opaque,
+                onTap: () => _onNavigate(index),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 4),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
                     children: [
-                      Icon(
-                        icon,
-                        color: isSelected
-                            ? AppColors.primary
-                            : AppColors.textSecondary,
-                        size: 18,
-                      ),
-                      if (isSelected) ...[
-                        const SizedBox(width: 6),
-                        Text(
-                          title,
-                          style: const TextStyle(
-                            color: AppColors.primary,
-                            fontSize: 12,
-                            fontWeight: FontWeight.w700,
+                      AnimatedContainer(
+                        duration: AppDimensions.durationMicro,
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 14, vertical: 4),
+                        decoration: BoxDecoration(
+                          color: isSelected
+                              ? const Color(0xFFDBEAFE)
+                              : Colors.transparent,
+                          borderRadius: BorderRadius.circular(12),
+                          border: Border.all(
+                            color: isSelected
+                                ? const Color(0xFF93C5FD)
+                                : Colors.transparent,
+                            width: 1.0,
                           ),
                         ),
-                      ],
+                        child: Icon(
+                          icon,
+                          color: isSelected
+                              ? AppColors.primary
+                              : AppColors.textSecondary,
+                          size: 20,
+                        ),
+                      ),
+                      const SizedBox(height: 3),
+                      Text(
+                        label,
+                        style: TextStyle(
+                          color: isSelected
+                              ? AppColors.primary
+                              : AppColors.textSecondary,
+                          fontSize: 10.5,
+                          fontWeight:
+                              isSelected ? FontWeight.w800 : FontWeight.w500,
+                        ),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
                     ],
                   ),
                 ),

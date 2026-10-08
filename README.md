@@ -22,8 +22,8 @@ Semua paket biner rilis resmi dan catatan pembaruan dapat diakses langsung pada 
 
 ### Panduan Singkat Instalasi:
 - **Android:** Unduh berkas APK, buka di ponsel Anda, dan izinkan instalasi dari sumber ini jika diminta sistem.
-- **Windows:** Unduh berkas ZIP, ekstrak isi foldernya, dan jalankan `local_financial_manager.exe`.
-- **Linux:** Unduh berkas TAR.GZ, ekstrak (`tar -xzf SakuKu-linux-x64.tar.gz`), lalu jalankan biner `./local_financial_manager`.
+- **Windows:** Unduh berkas ZIP, ekstrak isi foldernya, dan jalankan `SakuKu.exe`.
+- **Linux:** Unduh berkas TAR.GZ, ekstrak (`tar -xzf SakuKu-linux-x64.tar.gz`), lalu jalankan biner `./SakuKu`.
 
 ---
 

@@ -76,104 +76,111 @@ class _DashboardViewState extends State<DashboardView> {
         ),
       ),
       body: SafeArea(
-        child: SingleChildScrollView(
-          padding: const EdgeInsets.symmetric(
-            horizontal: AppDimensions.paddingL,
-            vertical: AppDimensions.paddingM,
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              // Header & Month Navigator (matching IT-Toolbox title bar)
-              EntranceFader(
-                offset: const Offset(0, -10),
-                child: _buildHeader(context),
+        child: LayoutBuilder(
+          builder: (context, constraints) {
+            final isMobile = constraints.maxWidth < 600;
+
+            return SingleChildScrollView(
+              padding: EdgeInsets.symmetric(
+                horizontal: isMobile ? 14.0 : AppDimensions.paddingL,
+                vertical: AppDimensions.paddingM,
               ),
-              const SizedBox(height: 16),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  // Header & Month Navigator (matching IT-Toolbox title bar)
+                  EntranceFader(
+                    offset: const Offset(0, -10),
+                    child: _buildHeader(context),
+                  ),
+                  const SizedBox(height: 16),
 
-              // StatCards 2x2 Grid (matching the 4 result cards in IT-Toolbox screenshot)
-              EntranceFader(
-                delay: const Duration(milliseconds: 60),
-                child: _buildStatCardsGrid(
-                  balance: balance,
-                  income: totalIncome,
-                  expense: totalExpense,
-                  ratio: ratio,
-                ),
-              ),
-              const SizedBox(height: 16),
+                  // StatCards 2x2 Grid (matching the 4 result cards in IT-Toolbox screenshot)
+                  EntranceFader(
+                    delay: const Duration(milliseconds: 60),
+                    child: _buildStatCardsGrid(
+                      balance: balance,
+                      income: totalIncome,
+                      expense: totalExpense,
+                      ratio: ratio,
+                    ),
+                  ),
+                  const SizedBox(height: 16),
 
-              // Recommendation Banner (matching "Saran Alokasi..." banner in IT-Toolbox screenshot)
-              EntranceFader(
-                delay: const Duration(milliseconds: 100),
-                child: _buildRecommendationBanner(ratio),
-              ),
-              const SizedBox(height: 18),
+                  // Recommendation Banner (matching "Saran Alokasi..." banner in IT-Toolbox screenshot)
+                  EntranceFader(
+                    delay: const Duration(milliseconds: 100),
+                    child: _buildRecommendationBanner(ratio),
+                  ),
+                  const SizedBox(height: 18),
 
-              // FR-02: Health Ratio Details Card
-              EntranceFader(
-                delay: const Duration(milliseconds: 140),
-                child: _buildHealthRatioCard(ratio),
-              ),
-              const SizedBox(height: 18),
+                  // FR-02: Health Ratio Details Card
+                  EntranceFader(
+                    delay: const Duration(milliseconds: 140),
+                    child: _buildHealthRatioCard(ratio),
+                  ),
+                  const SizedBox(height: 18),
 
-              // Grafik Arus Kas Finansial (Bi-directional Chart: Naik Pemasukan, Turun Pengeluaran)
-              EntranceFader(
-                delay: const Duration(milliseconds: 160),
-                child: FinancialCashflowChart(
-                  selectedMonth: _viewModel.selectedMonth,
-                ),
-              ),
-              const SizedBox(height: 18),
+                  // Grafik Arus Kas Finansial (Bi-directional Chart: Naik Pemasukan, Turun Pengeluaran)
+                  EntranceFader(
+                    delay: const Duration(milliseconds: 160),
+                    child: FinancialCashflowChart(
+                      selectedMonth: _viewModel.selectedMonth,
+                    ),
+                  ),
+                  const SizedBox(height: 18),
 
-              // Category Breakdown & Recent Transactions Grid
-              LayoutBuilder(
-                builder: (context, constraints) {
-                  final isWide = constraints.maxWidth > 760;
-                  final categorySection = CategoryPieChart(summary: summary);
-                  final recentSection = _buildRecentTransactions();
+                  // Category Breakdown & Recent Transactions Grid
+                  LayoutBuilder(
+                    builder: (context, constraints) {
+                      final isWide = constraints.maxWidth > 760;
+                      final categorySection =
+                          CategoryPieChart(summary: summary);
+                      final recentSection = _buildRecentTransactions();
 
-                  if (isWide) {
-                    return Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Expanded(
-                          flex: 5,
-                          child: EntranceFader(
+                      if (isWide) {
+                        return Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Expanded(
+                              flex: 5,
+                              child: EntranceFader(
+                                delay: const Duration(milliseconds: 180),
+                                child: categorySection,
+                              ),
+                            ),
+                            const SizedBox(width: 16),
+                            Expanded(
+                              flex: 5,
+                              child: EntranceFader(
+                                delay: const Duration(milliseconds: 220),
+                                child: recentSection,
+                              ),
+                            ),
+                          ],
+                        );
+                      }
+
+                      return Column(
+                        children: [
+                          EntranceFader(
                             delay: const Duration(milliseconds: 180),
                             child: categorySection,
                           ),
-                        ),
-                        const SizedBox(width: 16),
-                        Expanded(
-                          flex: 5,
-                          child: EntranceFader(
+                          const SizedBox(height: 16),
+                          EntranceFader(
                             delay: const Duration(milliseconds: 220),
                             child: recentSection,
                           ),
-                        ),
-                      ],
-                    );
-                  }
-
-                  return Column(
-                    children: [
-                      EntranceFader(
-                        delay: const Duration(milliseconds: 180),
-                        child: categorySection,
-                      ),
-                      const SizedBox(height: 16),
-                      EntranceFader(
-                        delay: const Duration(milliseconds: 220),
-                        child: recentSection,
-                      ),
-                    ],
-                  );
-                },
+                        ],
+                      );
+                    },
+                  ),
+                  const SizedBox(height: 80), // FAB clearance
+                ],
               ),
-              const SizedBox(height: 80), // FAB clearance
-            ],
-          ),
+            );
+          },
         ),
       ),
     );
@@ -181,82 +188,107 @@ class _DashboardViewState extends State<DashboardView> {
 
   // --- HEADER BAR ---
   Widget _buildHeader(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'Dasbor & Ringkasan Finansial',
-                style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                      color: AppColors.textPrimary,
-                      fontWeight: FontWeight.w800,
-                      letterSpacing: -0.3,
-                    ),
-              ),
-              const SizedBox(height: 4),
-              const Text(
-                'Alat praktis untuk analisis arus kas, rasio kesehatan finansial, dan tabungan lokal.',
-                style: TextStyle(
-                  color: AppColors.textMuted,
-                  fontSize: 13,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-            ],
-          ),
-        ),
-        const SizedBox(width: 12),
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final isMobile = constraints.maxWidth < 600;
 
-        // Right side: Category badge & Month selector
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.end,
+        final titleColumn = Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const GlassNeumorphicBadge(
-              label: 'LOCAL & OFFLINE',
-              icon: Icons.shield_outlined,
-              color: AppColors.primary,
+            Text(
+              'Dasbor & Ringkasan Finansial',
+              style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+                    color: AppColors.textPrimary,
+                    fontWeight: FontWeight.w800,
+                    letterSpacing: -0.3,
+                    fontSize: isMobile ? 20 : null,
+                  ),
             ),
-            const SizedBox(height: 8),
-            // Month Selector
-            GlassNeumorphicCard(
-              padding: const EdgeInsets.symmetric(horizontal: 6.0, vertical: 2.0),
-              borderRadius: AppDimensions.radiusButton,
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  IconButton(
-                    icon: const Icon(Icons.chevron_left_rounded, size: 20),
-                    color: AppColors.textSecondary,
-                    onPressed: () => _viewModel.previousMonth(),
-                    tooltip: 'Bulan Sebelumnya',
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 4.0),
-                    child: Text(
-                      DateFormatter.formatMonthYear(_viewModel.selectedMonth),
-                      style: const TextStyle(
-                        color: AppColors.textPrimary,
-                        fontWeight: FontWeight.w700,
-                        fontSize: 12.5,
-                      ),
-                    ),
-                  ),
-                  IconButton(
-                    icon: const Icon(Icons.chevron_right_rounded, size: 20),
-                    color: AppColors.textSecondary,
-                    onPressed: () => _viewModel.nextMonth(),
-                    tooltip: 'Bulan Selanjutnya',
-                  ),
-                ],
+            const SizedBox(height: 4),
+            Text(
+              'Alat praktis untuk analisis arus kas, rasio kesehatan finansial, dan tabungan lokal.',
+              style: TextStyle(
+                color: AppColors.textMuted,
+                fontSize: isMobile ? 12 : 13,
+                fontWeight: FontWeight.w500,
               ),
             ),
           ],
-        ),
-      ],
+        );
+
+        final monthSelector = GlassNeumorphicCard(
+          padding: const EdgeInsets.symmetric(horizontal: 6.0, vertical: 2.0),
+          borderRadius: AppDimensions.radiusButton,
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              IconButton(
+                icon: const Icon(Icons.chevron_left_rounded, size: 20),
+                color: AppColors.textSecondary,
+                onPressed: () => _viewModel.previousMonth(),
+                tooltip: 'Bulan Sebelumnya',
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 4.0),
+                child: Text(
+                  DateFormatter.formatMonthYear(_viewModel.selectedMonth),
+                  style: const TextStyle(
+                    color: AppColors.textPrimary,
+                    fontWeight: FontWeight.w700,
+                    fontSize: 12.5,
+                  ),
+                ),
+              ),
+              IconButton(
+                icon: const Icon(Icons.chevron_right_rounded, size: 20),
+                color: AppColors.textSecondary,
+                onPressed: () => _viewModel.nextMonth(),
+                tooltip: 'Bulan Selanjutnya',
+              ),
+            ],
+          ),
+        );
+
+        const offlineBadge = GlassNeumorphicBadge(
+          label: 'LOCAL & OFFLINE',
+          icon: Icons.shield_outlined,
+          color: AppColors.primary,
+        );
+
+        if (isMobile) {
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              titleColumn,
+              const SizedBox(height: 12),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  monthSelector,
+                  offlineBadge,
+                ],
+              ),
+            ],
+          );
+        }
+
+        return Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Expanded(child: titleColumn),
+            const SizedBox(width: 12),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                offlineBadge,
+                const SizedBox(height: 8),
+                monthSelector,
+              ],
+            ),
+          ],
+        );
+      },
     );
   }
 
@@ -370,16 +402,18 @@ class _DashboardViewState extends State<DashboardView> {
             ),
           ),
           const SizedBox(height: 6),
-          Text(
-            value,
-            style: TextStyle(
-              color: valueColor,
-              fontSize: 22,
-              fontWeight: FontWeight.w800,
-              letterSpacing: -0.3,
+          FittedBox(
+            fit: BoxFit.scaleDown,
+            alignment: Alignment.centerLeft,
+            child: Text(
+              value,
+              style: TextStyle(
+                color: valueColor,
+                fontSize: 22,
+                fontWeight: FontWeight.w800,
+                letterSpacing: -0.3,
+              ),
             ),
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
           ),
           const SizedBox(height: 4),
           Text(
@@ -475,18 +509,22 @@ class _DashboardViewState extends State<DashboardView> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          Wrap(
+            alignment: WrapAlignment.spaceBetween,
+            crossAxisAlignment: WrapCrossAlignment.center,
+            spacing: 8,
+            runSpacing: 6,
             children: [
               Row(
+                mainAxisSize: MainAxisSize.min,
                 children: [
                   Icon(status.icon, color: status.color, size: 20),
                   const SizedBox(width: 8),
                   const Text(
-                    'Evaluasi Rasio Kesehatan Ekonomi (FR-02)',
+                    'Evaluasi Rasio Kesehatan (FR-02)',
                     style: TextStyle(
                       color: AppColors.textPrimary,
-                      fontSize: 15,
+                      fontSize: 14.5,
                       fontWeight: FontWeight.w700,
                     ),
                   ),
@@ -546,9 +584,8 @@ class _DashboardViewState extends State<DashboardView> {
     required Color activeColor,
   }) {
     final hasValue = percentage != null;
-    final clampedRatio = hasValue
-        ? (percentage.clamp(0.0, 100.0) / 100.0)
-        : 0.0;
+    final clampedRatio =
+        hasValue ? (percentage.clamp(0.0, 100.0) / 100.0) : 0.0;
     final displayPct = hasValue ? '${percentage.toStringAsFixed(1)}%' : '-';
 
     return Column(
@@ -557,14 +594,19 @@ class _DashboardViewState extends State<DashboardView> {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(
-              title,
-              style: const TextStyle(
-                color: AppColors.textSecondary,
-                fontSize: 12,
-                fontWeight: FontWeight.w600,
+            Expanded(
+              child: Text(
+                title,
+                style: const TextStyle(
+                  color: AppColors.textSecondary,
+                  fontSize: 12,
+                  fontWeight: FontWeight.w600,
+                ),
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
               ),
             ),
+            const SizedBox(width: 8),
             Text(
               displayPct,
               style: TextStyle(
@@ -588,8 +630,6 @@ class _DashboardViewState extends State<DashboardView> {
       ],
     );
   }
-
-
 
   // --- RECENT TRANSACTIONS ---
   Widget _buildRecentTransactions() {

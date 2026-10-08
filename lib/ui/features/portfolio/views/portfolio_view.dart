@@ -23,7 +23,8 @@ class PortfolioView extends StatefulWidget {
 
 class _PortfolioViewState extends State<PortfolioView> {
   late final PortfolioViewModel _viewModel;
-  final FinancialCalculatorService _calculatorService = const FinancialCalculatorService();
+  final FinancialCalculatorService _calculatorService =
+      const FinancialCalculatorService();
 
   // Calculator State
   double _calcLoanPrincipal = 50000000;
@@ -60,7 +61,8 @@ class _PortfolioViewState extends State<PortfolioView> {
         padding: const EdgeInsets.all(AppDimensions.paddingL),
         decoration: const BoxDecoration(
           color: AppColors.cardSurface,
-          borderRadius: BorderRadius.vertical(top: Radius.circular(AppDimensions.radiusModal)),
+          borderRadius: BorderRadius.vertical(
+              top: Radius.circular(AppDimensions.radiusModal)),
         ),
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -79,7 +81,10 @@ class _PortfolioViewState extends State<PortfolioView> {
             const SizedBox(height: 16),
             const Text(
               'Pilih Jenis Catatan',
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w800, color: AppColors.textPrimary),
+              style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w800,
+                  color: AppColors.textPrimary),
             ),
             const SizedBox(height: 14),
             ListTile(
@@ -89,10 +94,14 @@ class _PortfolioViewState extends State<PortfolioView> {
                   color: AppColors.primary.withOpacity(0.12),
                   borderRadius: BorderRadius.circular(8),
                 ),
-                child: const Icon(Icons.trending_up_rounded, color: AppColors.primary),
+                child: const Icon(Icons.trending_up_rounded,
+                    color: AppColors.primary),
               ),
-              title: const Text('Instrumen Investasi', style: TextStyle(fontWeight: FontWeight.w700)),
-              subtitle: const Text('Saham, Reksadana, Crypto, SBN, Emas, Deposito', style: TextStyle(fontSize: 12)),
+              title: const Text('Instrumen Investasi',
+                  style: TextStyle(fontWeight: FontWeight.w700)),
+              subtitle: const Text(
+                  'Saham, Reksadana, Crypto, SBN, Emas, Deposito',
+                  style: TextStyle(fontSize: 12)),
               trailing: const Icon(Icons.chevron_right_rounded),
               onTap: () {
                 Navigator.of(ctx).pop();
@@ -110,10 +119,14 @@ class _PortfolioViewState extends State<PortfolioView> {
                   color: AppColors.expense.withOpacity(0.12),
                   borderRadius: BorderRadius.circular(8),
                 ),
-                child: const Icon(Icons.receipt_long_rounded, color: AppColors.expense),
+                child: const Icon(Icons.receipt_long_rounded,
+                    color: AppColors.expense),
               ),
-              title: const Text('Hutang atau Piutang', style: TextStyle(fontWeight: FontWeight.w700)),
-              subtitle: const Text('Pinjaman bank, KPR, hutang pribadi, atau piutang', style: TextStyle(fontSize: 12)),
+              title: const Text('Hutang atau Piutang',
+                  style: TextStyle(fontWeight: FontWeight.w700)),
+              subtitle: const Text(
+                  'Pinjaman bank, KPR, hutang pribadi, atau piutang',
+                  style: TextStyle(fontSize: 12)),
               trailing: const Icon(Icons.chevron_right_rounded),
               onTap: () {
                 Navigator.of(ctx).pop();
@@ -135,20 +148,25 @@ class _PortfolioViewState extends State<PortfolioView> {
       context: context,
       builder: (ctx) => AlertDialog(
         backgroundColor: AppColors.cardSurface,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(AppDimensions.radiusCard)),
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(AppDimensions.radiusCard)),
         title: Text(
-          debt.type == DebtType.debt ? 'Bayar Cicilan Hutang' : 'Terima Pembayaran Piutang',
+          debt.type == DebtType.debt
+              ? 'Bayar Cicilan Hutang'
+              : 'Terima Pembayaran Piutang',
           style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w800),
         ),
         content: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Pinjaman: ${debt.title}', style: const TextStyle(fontWeight: FontWeight.w600)),
+            Text('Pinjaman: ${debt.title}',
+                style: const TextStyle(fontWeight: FontWeight.w600)),
             const SizedBox(height: 4),
             Text(
               'Sisa Belum Lunas: ${CurrencyFormatter.format(debt.remainingAmount)}',
-              style: const TextStyle(color: AppColors.expense, fontWeight: FontWeight.w700),
+              style: const TextStyle(
+                  color: AppColors.expense, fontWeight: FontWeight.w700),
             ),
             const SizedBox(height: 14),
             GlassNeumorphicInput(
@@ -172,12 +190,14 @@ class _PortfolioViewState extends State<PortfolioView> {
         actions: [
           TextButton(
             onPressed: () => Navigator.of(ctx).pop(),
-            child: const Text('Batal', style: TextStyle(color: AppColors.textMuted)),
+            child: const Text('Batal',
+                style: TextStyle(color: AppColors.textMuted)),
           ),
           ElevatedButton(
             style: ElevatedButton.styleFrom(
               backgroundColor: AppColors.primary,
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8)),
             ),
             onPressed: () {
               final amount = CurrencyFormatter.parse(repayController.text);
@@ -186,7 +206,9 @@ class _PortfolioViewState extends State<PortfolioView> {
                 Navigator.of(ctx).pop();
               }
             },
-            child: const Text('Konfirmasi', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700)),
+            child: const Text('Konfirmasi',
+                style: TextStyle(
+                    color: Colors.white, fontWeight: FontWeight.w700)),
           ),
         ],
       ),
@@ -194,18 +216,24 @@ class _PortfolioViewState extends State<PortfolioView> {
   }
 
   void _showUpdatePriceDialog(InvestmentEntity inv) {
-    final priceController = TextEditingController(text: CurrencyFormatter.format(inv.currentValue));
+    final priceController =
+        TextEditingController(text: CurrencyFormatter.format(inv.currentValue));
     showDialog(
       context: context,
       builder: (ctx) => AlertDialog(
         backgroundColor: AppColors.cardSurface,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(AppDimensions.radiusCard)),
-        title: Text('Pembaruan Nilai: ${inv.name}', style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w800)),
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(AppDimensions.radiusCard)),
+        title: Text('Pembaruan Nilai: ${inv.name}',
+            style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w800)),
         content: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Platform: ${inv.platform} • Modal: ${CurrencyFormatter.format(inv.investedAmount)}', style: const TextStyle(fontSize: 12, color: AppColors.textMuted)),
+            Text(
+                'Platform: ${inv.platform} • Modal: ${CurrencyFormatter.format(inv.investedAmount)}',
+                style:
+                    const TextStyle(fontSize: 12, color: AppColors.textMuted)),
             const SizedBox(height: 14),
             GlassNeumorphicInput(
               controller: priceController,
@@ -228,12 +256,14 @@ class _PortfolioViewState extends State<PortfolioView> {
         actions: [
           TextButton(
             onPressed: () => Navigator.of(ctx).pop(),
-            child: const Text('Batal', style: TextStyle(color: AppColors.textMuted)),
+            child: const Text('Batal',
+                style: TextStyle(color: AppColors.textMuted)),
           ),
           ElevatedButton(
             style: ElevatedButton.styleFrom(
               backgroundColor: AppColors.primary,
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8)),
             ),
             onPressed: () {
               final newPrice = CurrencyFormatter.parse(priceController.text);
@@ -242,7 +272,9 @@ class _PortfolioViewState extends State<PortfolioView> {
                 Navigator.of(ctx).pop();
               }
             },
-            child: const Text('Simpan Nilai', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700)),
+            child: const Text('Simpan Nilai',
+                style: TextStyle(
+                    color: Colors.white, fontWeight: FontWeight.w700)),
           ),
         ],
       ),
@@ -252,7 +284,8 @@ class _PortfolioViewState extends State<PortfolioView> {
   @override
   Widget build(BuildContext context) {
     if (_viewModel.isLoading && _viewModel.summary == null) {
-      return const Center(child: CircularProgressIndicator(color: AppColors.primary));
+      return const Center(
+          child: CircularProgressIndicator(color: AppColors.primary));
     }
 
     final summary = _viewModel.summary;
@@ -270,86 +303,110 @@ class _PortfolioViewState extends State<PortfolioView> {
         ),
       ),
       body: SafeArea(
-        child: SingleChildScrollView(
-          padding: const EdgeInsets.symmetric(
-            horizontal: AppDimensions.paddingL,
-            vertical: AppDimensions.paddingM,
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              // Header
-              EntranceFader(
-                offset: const Offset(0, -10),
-                child: _buildHeader(),
-              ),
-              const SizedBox(height: 16),
+        child: LayoutBuilder(
+          builder: (context, constraints) {
+            final isMobile = constraints.maxWidth < 600;
 
-              // 4 Signature StatCards with Accent Stripe (Cobalt, Coral, Emerald, Amber)
-              EntranceFader(
-                delay: const Duration(milliseconds: 60),
-                child: _buildStatCardsGrid(summary),
+            return SingleChildScrollView(
+              padding: EdgeInsets.symmetric(
+                horizontal: isMobile ? 14.0 : AppDimensions.paddingL,
+                vertical: AppDimensions.paddingM,
               ),
-              const SizedBox(height: 18),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  // Header
+                  EntranceFader(
+                    offset: const Offset(0, -10),
+                    child: _buildHeader(),
+                  ),
+                  const SizedBox(height: 16),
 
-              // Main Tabs Selector: Investasi, Hutang & Piutang, Kalkulator
-              EntranceFader(
-                delay: const Duration(milliseconds: 100),
-                child: _buildMainTabs(),
+                  // 4 Signature StatCards with Accent Stripe (Cobalt, Coral, Emerald, Amber)
+                  EntranceFader(
+                    delay: const Duration(milliseconds: 60),
+                    child: _buildStatCardsGrid(summary),
+                  ),
+                  const SizedBox(height: 18),
+
+                  // Main Tabs Selector: Investasi, Hutang & Piutang, Kalkulator
+                  EntranceFader(
+                    delay: const Duration(milliseconds: 100),
+                    child: _buildMainTabs(),
+                  ),
+                  const SizedBox(height: 16),
+
+                  // Tab View Content
+                  EntranceFader(
+                    delay: const Duration(milliseconds: 140),
+                    child: _buildActiveTabContent(),
+                  ),
+
+                  const SizedBox(height: 80), // FAB clearance
+                ],
               ),
-              const SizedBox(height: 16),
-
-              // Tab View Content
-              EntranceFader(
-                delay: const Duration(milliseconds: 140),
-                child: _buildActiveTabContent(),
-              ),
-
-              const SizedBox(height: 80), // FAB clearance
-            ],
-          ),
+            );
+          },
         ),
       ),
     );
   }
 
   Widget _buildHeader() {
-    return const Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'Portofolio & Pengelola Hutang',
-                style: TextStyle(
-                  color: AppColors.textPrimary,
-                  fontSize: 22,
-                  fontWeight: FontWeight.w800,
-                  letterSpacing: -0.3,
-                ),
-              ),
-              SizedBox(height: 4),
-              Text(
-                'Pantau aset saham, reksadana, crypto, kewajiban hutang, kalkulator bunga, dan tenggat waktu.',
-                style: TextStyle(
-                  color: AppColors.textMuted,
-                  fontSize: 13,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-            ],
-          ),
-        ),
-        SizedBox(width: 12),
-        GlassNeumorphicBadge(
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final isMobile = constraints.maxWidth < 600;
+        const badge = GlassNeumorphicBadge(
           label: 'WORKBENCH',
           icon: Icons.monetization_on_outlined,
           color: AppColors.primary,
-        ),
-      ],
+        );
+
+        final titleColumn = Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'Portofolio & Pengelola Hutang',
+              style: TextStyle(
+                color: AppColors.textPrimary,
+                fontSize: isMobile ? 20 : 22,
+                fontWeight: FontWeight.w800,
+                letterSpacing: -0.3,
+              ),
+            ),
+            const SizedBox(height: 4),
+            Text(
+              'Pantau aset saham, reksadana, crypto, kewajiban hutang, kalkulator bunga, dan tenggat waktu.',
+              style: TextStyle(
+                color: AppColors.textMuted,
+                fontSize: isMobile ? 12 : 13,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+          ],
+        );
+
+        if (isMobile) {
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              titleColumn,
+              const SizedBox(height: 10),
+              badge,
+            ],
+          );
+        }
+
+        return Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Expanded(child: titleColumn),
+            const SizedBox(width: 12),
+            badge,
+          ],
+        );
+      },
     );
   }
 
@@ -372,7 +429,8 @@ class _PortfolioViewState extends State<PortfolioView> {
             label: 'TOTAL ASET INVESTASI',
             value: CurrencyFormatter.format(totalInvest),
             valueColor: AppColors.primary,
-            subtitle: 'PnL: ${pnl >= 0 ? '+' : ''}${CurrencyFormatter.format(pnl)} (${pnlPct.toStringAsFixed(1)}%)',
+            subtitle:
+                'PnL: ${pnl >= 0 ? '+' : ''}${CurrencyFormatter.format(pnl)} (${pnlPct.toStringAsFixed(1)}%)',
             subtitleColor: pnl >= 0 ? AppColors.income : AppColors.expense,
             icon: Icons.trending_up_rounded,
           ),
@@ -406,9 +464,15 @@ class _PortfolioViewState extends State<PortfolioView> {
           stripeColor: overdue > 0 ? AppColors.expense : AppColors.warning,
           child: _buildStatCardItem(
             label: 'STATUS JATUH TEMPO (DUE ALERT)',
-            value: overdue > 0 ? '$overdue LEWAT TEMPO' : (dueSoon > 0 ? '$dueSoon SEGERA TEMPO' : 'SEMUA AMAN'),
-            valueColor: overdue > 0 ? AppColors.expense : (dueSoon > 0 ? AppColors.warning : AppColors.income),
-            subtitle: overdue > 0 ? 'Perlu tindakan segera!' : '≤ 7 hari: $dueSoon pinjaman',
+            value: overdue > 0
+                ? '$overdue LEWAT TEMPO'
+                : (dueSoon > 0 ? '$dueSoon SEGERA TEMPO' : 'SEMUA AMAN'),
+            valueColor: overdue > 0
+                ? AppColors.expense
+                : (dueSoon > 0 ? AppColors.warning : AppColors.income),
+            subtitle: overdue > 0
+                ? 'Perlu tindakan segera!'
+                : '≤ 7 hari: $dueSoon pinjaman',
             subtitleColor: AppColors.textMuted,
             icon: Icons.alarm_rounded,
           ),
@@ -426,25 +490,38 @@ class _PortfolioViewState extends State<PortfolioView> {
               Expanded(child: card4),
             ],
           );
+        } else if (constraints.maxWidth >= 600) {
+          return Column(
+            children: [
+              Row(
+                children: [
+                  Expanded(child: card1),
+                  const SizedBox(width: 12),
+                  Expanded(child: card2),
+                ],
+              ),
+              const SizedBox(height: 12),
+              Row(
+                children: [
+                  Expanded(child: card3),
+                  const SizedBox(width: 12),
+                  Expanded(child: card4),
+                ],
+              ),
+            ],
+          );
         }
 
+        // On mobile portrait (< 600px): clean 1-column stack to avoid squished text
         return Column(
           children: [
-            Row(
-              children: [
-                Expanded(child: card1),
-                const SizedBox(width: 12),
-                Expanded(child: card2),
-              ],
-            ),
-            const SizedBox(height: 12),
-            Row(
-              children: [
-                Expanded(child: card3),
-                const SizedBox(width: 12),
-                Expanded(child: card4),
-              ],
-            ),
+            card1,
+            const SizedBox(height: 10),
+            card2,
+            const SizedBox(height: 10),
+            card3,
+            const SizedBox(height: 10),
+            card4,
           ],
         );
       },
@@ -478,16 +555,18 @@ class _PortfolioViewState extends State<PortfolioView> {
           ],
         ),
         const SizedBox(height: 6),
-        Text(
-          value,
-          style: TextStyle(
-            fontSize: 18,
-            fontWeight: FontWeight.w900,
-            color: valueColor,
-            letterSpacing: -0.3,
+        FittedBox(
+          fit: BoxFit.scaleDown,
+          alignment: Alignment.centerLeft,
+          child: Text(
+            value,
+            style: TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.w900,
+              color: valueColor,
+              letterSpacing: -0.3,
+            ),
           ),
-          maxLines: 1,
-          overflow: TextOverflow.ellipsis,
         ),
         const SizedBox(height: 4),
         Text(
@@ -505,38 +584,46 @@ class _PortfolioViewState extends State<PortfolioView> {
   }
 
   Widget _buildMainTabs() {
-    return Container(
-      decoration: BoxDecoration(
-        color: AppColors.cardInner,
-        borderRadius: BorderRadius.circular(AppDimensions.radiusButton),
-        border: Border.all(color: AppColors.borderMedium, width: 1.0),
-      ),
-      padding: const EdgeInsets.all(4),
-      child: Row(
-        children: [
-          Expanded(
-            child: _buildTabItem(
-              index: 0,
-              label: 'Portofolio Investasi',
-              icon: Icons.trending_up_rounded,
-            ),
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final isMobile = constraints.maxWidth < 600;
+
+        return Container(
+          decoration: BoxDecoration(
+            color: AppColors.cardInner,
+            borderRadius: BorderRadius.circular(AppDimensions.radiusButton),
+            border: Border.all(color: AppColors.borderMedium, width: 1.0),
           ),
-          Expanded(
-            child: _buildTabItem(
-              index: 1,
-              label: 'Hutang & Piutang',
-              icon: Icons.receipt_long_rounded,
-            ),
+          padding: const EdgeInsets.all(4),
+          child: Row(
+            children: [
+              Expanded(
+                child: _buildTabItem(
+                  index: 0,
+                  label: isMobile ? 'Investasi' : 'Portofolio Investasi',
+                  icon: Icons.trending_up_rounded,
+                ),
+              ),
+              const SizedBox(width: 4),
+              Expanded(
+                child: _buildTabItem(
+                  index: 1,
+                  label: isMobile ? 'Hutang' : 'Hutang & Piutang',
+                  icon: Icons.receipt_long_rounded,
+                ),
+              ),
+              const SizedBox(width: 4),
+              Expanded(
+                child: _buildTabItem(
+                  index: 2,
+                  label: isMobile ? 'Kalkulator' : 'Kalkulator Bunga',
+                  icon: Icons.calculate_rounded,
+                ),
+              ),
+            ],
           ),
-          Expanded(
-            child: _buildTabItem(
-              index: 2,
-              label: 'Kalkulator Bunga',
-              icon: Icons.calculate_rounded,
-            ),
-          ),
-        ],
-      ),
+        );
+      },
     );
   }
 
@@ -550,7 +637,7 @@ class _PortfolioViewState extends State<PortfolioView> {
       onTap: () => _viewModel.setTabIndex(index),
       child: AnimatedContainer(
         duration: AppDimensions.durationMicro,
-        padding: const EdgeInsets.symmetric(vertical: 9),
+        padding: const EdgeInsets.symmetric(vertical: 9, horizontal: 4),
         decoration: BoxDecoration(
           color: isSelected ? Colors.white : Colors.transparent,
           borderRadius: BorderRadius.circular(AppDimensions.radiusButton - 2),
@@ -567,14 +654,22 @@ class _PortfolioViewState extends State<PortfolioView> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(icon, size: 16, color: isSelected ? AppColors.primary : AppColors.textSecondary),
-            const SizedBox(width: 7),
-            Text(
-              label,
-              style: TextStyle(
-                color: isSelected ? AppColors.primary : AppColors.textSecondary,
-                fontSize: 13,
-                fontWeight: isSelected ? FontWeight.w800 : FontWeight.w600,
+            Icon(icon,
+                size: 16,
+                color:
+                    isSelected ? AppColors.primary : AppColors.textSecondary),
+            const SizedBox(width: 6),
+            Flexible(
+              child: Text(
+                label,
+                style: TextStyle(
+                  color:
+                      isSelected ? AppColors.primary : AppColors.textSecondary,
+                  fontSize: 12.5,
+                  fontWeight: isSelected ? FontWeight.w800 : FontWeight.w600,
+                ),
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
               ),
             ),
           ],
@@ -622,7 +717,8 @@ class _PortfolioViewState extends State<PortfolioView> {
         if (investments.isEmpty)
           _buildEmptyCard(
             title: 'Belum ada aset investasi',
-            subtitle: 'Tekan "+ Tambah Aset / Hutang" untuk mencatat saham, crypto, reksadana, atau deposito Anda.',
+            subtitle:
+                'Tekan "+ Tambah Aset / Hutang" untuk mencatat saham, crypto, reksadana, atau deposito Anda.',
             icon: Icons.show_chart_rounded,
           )
         else
@@ -681,37 +777,49 @@ class _PortfolioViewState extends State<PortfolioView> {
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Row(
-                children: [
-                  Container(
-                    padding: const EdgeInsets.all(8),
-                    decoration: BoxDecoration(
-                      color: inv.category.color.withOpacity(0.12),
-                      borderRadius: BorderRadius.circular(8),
+              Expanded(
+                child: Row(
+                  children: [
+                    Container(
+                      padding: const EdgeInsets.all(8),
+                      decoration: BoxDecoration(
+                        color: inv.category.color.withOpacity(0.12),
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: Icon(inv.category.icon,
+                          size: 18, color: inv.category.color),
                     ),
-                    child: Icon(inv.category.icon, size: 18, color: inv.category.color),
-                  ),
-                  const SizedBox(width: 10),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        inv.name,
-                        style: const TextStyle(
-                          fontSize: 15,
-                          fontWeight: FontWeight.w800,
-                          color: AppColors.textPrimary,
-                        ),
+                    const SizedBox(width: 10),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            inv.name,
+                            style: const TextStyle(
+                              fontSize: 15,
+                              fontWeight: FontWeight.w800,
+                              color: AppColors.textPrimary,
+                            ),
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                          Text(
+                            '${inv.category.label} • Platform: ${inv.platform}',
+                            style: const TextStyle(
+                                fontSize: 11.5, color: AppColors.textMuted),
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ],
                       ),
-                      Text(
-                        '${inv.category.label} • Platform: ${inv.platform}',
-                        style: const TextStyle(fontSize: 11.5, color: AppColors.textMuted),
-                      ),
-                    ],
-                  ),
-                ],
+                    ),
+                  ],
+                ),
               ),
+              const SizedBox(width: 8),
               // PnL Badge
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
@@ -723,13 +831,18 @@ class _PortfolioViewState extends State<PortfolioView> {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Icon(
-                      isProfit ? Icons.arrow_drop_up_rounded : Icons.arrow_drop_down_rounded,
+                      isProfit
+                          ? Icons.arrow_drop_up_rounded
+                          : Icons.arrow_drop_down_rounded,
                       color: pnlColor,
                       size: 20,
                     ),
                     Text(
                       '${isProfit ? "+" : ""}${pnlPct.toStringAsFixed(1)}%',
-                      style: TextStyle(fontSize: 12.5, fontWeight: FontWeight.w800, color: pnlColor),
+                      style: TextStyle(
+                          fontSize: 12.5,
+                          fontWeight: FontWeight.w800,
+                          color: pnlColor),
                     ),
                   ],
                 ),
@@ -742,37 +855,72 @@ class _PortfolioViewState extends State<PortfolioView> {
 
           // Values: Modal Disetor vs Nilai Terkini vs PnL Nominal
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text('Modal Pokok', style: TextStyle(fontSize: 11, color: AppColors.textMuted)),
-                  const SizedBox(height: 2),
-                  Text(CurrencyFormatter.format(inv.investedAmount), style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w700)),
-                ],
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text('Modal Pokok',
+                        style: TextStyle(
+                            fontSize: 11, color: AppColors.textMuted)),
+                    const SizedBox(height: 2),
+                    FittedBox(
+                      fit: BoxFit.scaleDown,
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        CurrencyFormatter.format(inv.investedAmount),
+                        style: const TextStyle(
+                            fontSize: 13, fontWeight: FontWeight.w700),
+                      ),
+                    ),
+                  ],
+                ),
               ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  const Text('Nilai Pasar Terkini', style: TextStyle(fontSize: 11, color: AppColors.textMuted)),
-                  const SizedBox(height: 2),
-                  Text(
-                    CurrencyFormatter.format(inv.currentValue),
-                    style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w900, color: AppColors.primary),
-                  ),
-                ],
+              const SizedBox(width: 6),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    const Text('Nilai Pasar Terkini',
+                        style: TextStyle(
+                            fontSize: 11, color: AppColors.textMuted)),
+                    const SizedBox(height: 2),
+                    FittedBox(
+                      fit: BoxFit.scaleDown,
+                      alignment: Alignment.center,
+                      child: Text(
+                        CurrencyFormatter.format(inv.currentValue),
+                        style: const TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.w900,
+                            color: AppColors.primary),
+                      ),
+                    ),
+                  ],
+                ),
               ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  const Text('Untung / Rugi (PnL)', style: TextStyle(fontSize: 11, color: AppColors.textMuted)),
-                  const SizedBox(height: 2),
-                  Text(
-                    '${isProfit ? "+" : ""}${CurrencyFormatter.format(pnl)}',
-                    style: TextStyle(fontSize: 13, fontWeight: FontWeight.w800, color: pnlColor),
-                  ),
-                ],
+              const SizedBox(width: 6),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    const Text('Untung / Rugi (PnL)',
+                        style: TextStyle(
+                            fontSize: 11, color: AppColors.textMuted)),
+                    const SizedBox(height: 2),
+                    FittedBox(
+                      fit: BoxFit.scaleDown,
+                      alignment: Alignment.centerRight,
+                      child: Text(
+                        '${isProfit ? "+" : ""}${CurrencyFormatter.format(pnl)}',
+                        style: TextStyle(
+                            fontSize: 13,
+                            fontWeight: FontWeight.w800,
+                            color: pnlColor),
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ],
           ),
@@ -788,21 +936,35 @@ class _PortfolioViewState extends State<PortfolioView> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Row(
-                    children: [
-                      const Icon(Icons.event_available_rounded, size: 14, color: AppColors.textSecondary),
-                      const SizedBox(width: 6),
-                      Text(
-                        'Jatuh Tempo: ${DateFormatter.formatShort(inv.maturityDate!)}',
-                        style: const TextStyle(fontSize: 11.5, fontWeight: FontWeight.w600),
-                      ),
-                    ],
+                  Expanded(
+                    child: Row(
+                      children: [
+                        const Icon(Icons.event_available_rounded,
+                            size: 14, color: AppColors.textSecondary),
+                        const SizedBox(width: 6),
+                        Flexible(
+                          child: Text(
+                            'Jatuh Tempo: ${DateFormatter.formatShort(inv.maturityDate!)}',
+                            style: const TextStyle(
+                                fontSize: 11.5, fontWeight: FontWeight.w600),
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
+                  const SizedBox(width: 6),
                   Text(
                     inv.daysToMaturity != null
-                        ? (inv.daysToMaturity! >= 0 ? '${inv.daysToMaturity} hari lagi' : 'Telah jatuh tempo')
+                        ? (inv.daysToMaturity! >= 0
+                            ? '${inv.daysToMaturity} hari lagi'
+                            : 'Telah jatuh tempo')
                         : '',
-                    style: const TextStyle(fontSize: 11, fontWeight: FontWeight.w700, color: AppColors.primary),
+                    style: const TextStyle(
+                        fontSize: 11,
+                        fontWeight: FontWeight.w700,
+                        color: AppColors.primary),
                   ),
                 ],
               ),
@@ -817,10 +979,12 @@ class _PortfolioViewState extends State<PortfolioView> {
               TextButton.icon(
                 onPressed: () => _showUpdatePriceDialog(inv),
                 icon: const Icon(Icons.refresh_rounded, size: 15),
-                label: const Text('Update Nilai', style: TextStyle(fontSize: 12)),
+                label:
+                    const Text('Update Nilai', style: TextStyle(fontSize: 12)),
               ),
               IconButton(
-                icon: const Icon(Icons.edit_outlined, size: 18, color: AppColors.textSecondary),
+                icon: const Icon(Icons.edit_outlined,
+                    size: 18, color: AppColors.textSecondary),
                 onPressed: () => InvestmentFormModal.show(
                   context,
                   initialInvestment: inv,
@@ -829,7 +993,8 @@ class _PortfolioViewState extends State<PortfolioView> {
                 tooltip: 'Edit Aset',
               ),
               IconButton(
-                icon: const Icon(Icons.delete_outline_rounded, size: 18, color: AppColors.expense),
+                icon: const Icon(Icons.delete_outline_rounded,
+                    size: 18, color: AppColors.expense),
                 onPressed: () => _viewModel.deleteInvestment(inv.id!),
                 tooltip: 'Hapus Aset',
               ),
@@ -883,8 +1048,10 @@ class _PortfolioViewState extends State<PortfolioView> {
 
         if (debts.isEmpty)
           _buildEmptyCard(
-            title: 'Tidak ada data ${_viewModel.selectedDebtType.label.toLowerCase()}',
-            subtitle: 'Tekan "+ Tambah Aset / Hutang" untuk mencatat hutang atau piutang baru.',
+            title:
+                'Tidak ada data ${_viewModel.selectedDebtType.label.toLowerCase()}',
+            subtitle:
+                'Tekan "+ Tambah Aset / Hutang" untuk mencatat hutang atau piutang baru.',
             icon: Icons.receipt_long_rounded,
           )
         else
@@ -919,14 +1086,19 @@ class _PortfolioViewState extends State<PortfolioView> {
           borderRadius: BorderRadius.circular(AppDimensions.radiusButton - 2),
           boxShadow: isSelected
               ? const [
-                  BoxShadow(color: Color(0x1A000000), offset: Offset(0, 1), blurRadius: 3),
+                  BoxShadow(
+                      color: Color(0x1A000000),
+                      offset: Offset(0, 1),
+                      blurRadius: 3),
                 ]
               : [],
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(icon, size: 16, color: isSelected ? activeColor : AppColors.textSecondary),
+            Icon(icon,
+                size: 16,
+                color: isSelected ? activeColor : AppColors.textSecondary),
             const SizedBox(width: 6),
             Text(
               label,
@@ -973,7 +1145,8 @@ class _PortfolioViewState extends State<PortfolioView> {
                     const SizedBox(height: 2),
                     Text(
                       'Pihak: ${debt.personOrInstitution} • ${debt.interestType.label}',
-                      style: const TextStyle(fontSize: 12, color: AppColors.textMuted),
+                      style: const TextStyle(
+                          fontSize: 12, color: AppColors.textMuted),
                     ),
                   ],
                 ),
@@ -992,7 +1165,10 @@ class _PortfolioViewState extends State<PortfolioView> {
                     const SizedBox(width: 5),
                     Text(
                       urgency.label,
-                      style: TextStyle(fontSize: 11, fontWeight: FontWeight.w800, color: urgency.color),
+                      style: TextStyle(
+                          fontSize: 11,
+                          fontWeight: FontWeight.w800,
+                          color: urgency.color),
                     ),
                   ],
                 ),
@@ -1017,41 +1193,75 @@ class _PortfolioViewState extends State<PortfolioView> {
 
           // Nominal Pokok vs Sisa vs Bunga
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text('Pokok Pinjaman', style: TextStyle(fontSize: 11, color: AppColors.textMuted)),
-                  const SizedBox(height: 2),
-                  Text(CurrencyFormatter.format(debt.amount), style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w700)),
-                ],
-              ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  const Text('Sisa Belum Lunas', style: TextStyle(fontSize: 11, color: AppColors.textMuted)),
-                  const SizedBox(height: 2),
-                  Text(
-                    CurrencyFormatter.format(debt.remainingAmount),
-                    style: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w900,
-                      color: isPaid ? AppColors.income : AppColors.expense,
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text('Pokok Pinjaman',
+                        style: TextStyle(
+                            fontSize: 11, color: AppColors.textMuted)),
+                    const SizedBox(height: 2),
+                    FittedBox(
+                      fit: BoxFit.scaleDown,
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        CurrencyFormatter.format(debt.amount),
+                        style: const TextStyle(
+                            fontSize: 13, fontWeight: FontWeight.w700),
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  const Text('Suku Bunga', style: TextStyle(fontSize: 11, color: AppColors.textMuted)),
-                  const SizedBox(height: 2),
-                  Text(
-                    debt.interestRate > 0 ? '${debt.interestRate}%/thn' : '0% (Bebas)',
-                    style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w700, color: AppColors.primary),
-                  ),
-                ],
+              const SizedBox(width: 6),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    const Text('Sisa Belum Lunas',
+                        style: TextStyle(
+                            fontSize: 11, color: AppColors.textMuted)),
+                    const SizedBox(height: 2),
+                    FittedBox(
+                      fit: BoxFit.scaleDown,
+                      alignment: Alignment.center,
+                      child: Text(
+                        CurrencyFormatter.format(debt.remainingAmount),
+                        style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w900,
+                          color: isPaid ? AppColors.income : AppColors.expense,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(width: 6),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    const Text('Suku Bunga',
+                        style: TextStyle(
+                            fontSize: 11, color: AppColors.textMuted)),
+                    const SizedBox(height: 2),
+                    FittedBox(
+                      fit: BoxFit.scaleDown,
+                      alignment: Alignment.centerRight,
+                      child: Text(
+                        debt.interestRate > 0
+                            ? '${debt.interestRate}%/thn'
+                            : '0% (Bebas)',
+                        style: const TextStyle(
+                            fontSize: 13,
+                            fontWeight: FontWeight.w700,
+                            color: AppColors.primary),
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ],
           ),
@@ -1067,23 +1277,35 @@ class _PortfolioViewState extends State<PortfolioView> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Row(
-                  children: [
-                    Icon(Icons.calendar_today_rounded, size: 13, color: urgency.color),
-                    const SizedBox(width: 6),
-                    Text(
-                      'Jatuh Tempo: ${DateFormatter.formatShort(debt.dueDate)}',
-                      style: const TextStyle(fontSize: 11.5, fontWeight: FontWeight.w600),
-                    ),
-                  ],
+                Expanded(
+                  child: Row(
+                    children: [
+                      Icon(Icons.calendar_today_rounded,
+                          size: 13, color: urgency.color),
+                      const SizedBox(width: 6),
+                      Flexible(
+                        child: Text(
+                          'Jatuh Tempo: ${DateFormatter.formatShort(debt.dueDate)}',
+                          style: const TextStyle(
+                              fontSize: 11.5, fontWeight: FontWeight.w600),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
+                const SizedBox(width: 6),
                 Text(
                   isPaid
                       ? 'Lunas'
                       : (debt.daysRemaining >= 0
                           ? '${debt.daysRemaining} hari lagi'
                           : 'Terlambat ${debt.daysRemaining.abs()} hari'),
-                  style: TextStyle(fontSize: 11.5, fontWeight: FontWeight.w800, color: urgency.color),
+                  style: TextStyle(
+                      fontSize: 11.5,
+                      fontWeight: FontWeight.w800,
+                      color: urgency.color),
                 ),
               ],
             ),
@@ -1091,39 +1313,55 @@ class _PortfolioViewState extends State<PortfolioView> {
 
           const SizedBox(height: 8),
           // Actions: Bayar Cicilan, Edit, Hapus
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              if (!isPaid)
-                ElevatedButton.icon(
-                  onPressed: () => _showRepayDialog(debt),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: AppColors.primary,
-                    padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
-                    visualDensity: VisualDensity.compact,
+          Align(
+            alignment: Alignment.centerRight,
+            child: Wrap(
+              alignment: WrapAlignment.end,
+              crossAxisAlignment: WrapCrossAlignment.center,
+              spacing: 4,
+              runSpacing: 4,
+              children: [
+                if (!isPaid)
+                  ElevatedButton.icon(
+                    onPressed: () => _showRepayDialog(debt),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: AppColors.primary,
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 12, vertical: 6),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(6)),
+                      visualDensity: VisualDensity.compact,
+                    ),
+                    icon: const Icon(Icons.payment_rounded,
+                        size: 14, color: Colors.white),
+                    label: Text(
+                      debt.type == DebtType.debt
+                          ? 'Bayar Cicilan'
+                          : 'Terima Pembayaran',
+                      style: const TextStyle(
+                          fontSize: 11.5,
+                          fontWeight: FontWeight.w700,
+                          color: Colors.white),
+                    ),
                   ),
-                  icon: const Icon(Icons.payment_rounded, size: 14, color: Colors.white),
-                  label: Text(
-                    debt.type == DebtType.debt ? 'Bayar Cicilan' : 'Terima Pembayaran',
-                    style: const TextStyle(fontSize: 11.5, fontWeight: FontWeight.w700, color: Colors.white),
+                IconButton(
+                  icon: const Icon(Icons.edit_outlined,
+                      size: 18, color: AppColors.textSecondary),
+                  onPressed: () => DebtFormModal.show(
+                    context,
+                    initialDebt: debt,
+                    onSaved: (updated) => _viewModel.updateDebt(updated),
                   ),
+                  tooltip: 'Edit Pinjaman',
                 ),
-              IconButton(
-                icon: const Icon(Icons.edit_outlined, size: 18, color: AppColors.textSecondary),
-                onPressed: () => DebtFormModal.show(
-                  context,
-                  initialDebt: debt,
-                  onSaved: (updated) => _viewModel.updateDebt(updated),
+                IconButton(
+                  icon: const Icon(Icons.delete_outline_rounded,
+                      size: 18, color: AppColors.expense),
+                  onPressed: () => _viewModel.deleteDebt(debt.id!),
+                  tooltip: 'Hapus Pinjaman',
                 ),
-                tooltip: 'Edit Pinjaman',
-              ),
-              IconButton(
-                icon: const Icon(Icons.delete_outline_rounded, size: 18, color: AppColors.expense),
-                onPressed: () => _viewModel.deleteDebt(debt.id!),
-                tooltip: 'Hapus Pinjaman',
-              ),
-            ],
+              ],
+            ),
           ),
         ],
       ),
@@ -1153,307 +1391,579 @@ class _PortfolioViewState extends State<PortfolioView> {
       years: _calcInvestYears,
     );
 
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        // Sub-calculator 1: Loan & Interest Calculator
-        GlassNeumorphicCard(
-          stripeColor: AppColors.expense,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const Row(
-                    children: [
-                      Icon(Icons.calculate_outlined, color: AppColors.expense, size: 20),
-                      SizedBox(width: 8),
-                      Text(
-                        'Penghitung Bunga Pinjaman / Cicilan',
-                        style: TextStyle(fontSize: 15.5, fontWeight: FontWeight.w800, color: AppColors.textPrimary),
-                      ),
-                    ],
-                  ),
-                  // Method Switcher: Flat vs Anuitas
-                  Row(
-                    children: [
-                      Text(
-                        _calcIsAnnuity ? 'Bunga Anuitas' : 'Bunga Flat',
-                        style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w700, color: AppColors.primary),
-                      ),
-                      Switch(
-                        value: _calcIsAnnuity,
-                        activeColor: AppColors.primary,
-                        onChanged: (val) => setState(() => _calcIsAnnuity = val),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-              const SizedBox(height: 12),
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final isMobile = constraints.maxWidth < 600;
 
-              // Inputs Sliders / Values
-              Row(
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // Sub-calculator 1: Loan & Interest Calculator
+            GlassNeumorphicCard(
+              stripeColor: AppColors.expense,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text('Pokok Pinjaman: ${CurrencyFormatter.format(_calcLoanPrincipal)}', style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w700)),
-                        Slider(
-                          value: _calcLoanPrincipal,
-                          min: 1000000,
-                          max: 500000000,
-                          divisions: 100,
-                          activeColor: AppColors.expense,
-                          onChanged: (val) => setState(() => _calcLoanPrincipal = val),
-                        ),
-                      ],
-                    ),
+                  LayoutBuilder(
+                    builder: (context, cardConstraints) {
+                      final isCardNarrow = cardConstraints.maxWidth < 500;
+                      final titleRow = Row(
+                        children: [
+                          const Icon(Icons.calculate_outlined,
+                              color: AppColors.expense, size: 20),
+                          const SizedBox(width: 8),
+                          Expanded(
+                            child: Text(
+                              'Penghitung Bunga Pinjaman / Cicilan',
+                              style: TextStyle(
+                                fontSize: isCardNarrow ? 14 : 15.5,
+                                fontWeight: FontWeight.w800,
+                                color: AppColors.textPrimary,
+                              ),
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ),
+                        ],
+                      );
+
+                      final switcherRow = Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Text(
+                            _calcIsAnnuity ? 'Bunga Anuitas' : 'Bunga Flat',
+                            style: const TextStyle(
+                                fontSize: 12,
+                                fontWeight: FontWeight.w700,
+                                color: AppColors.primary),
+                          ),
+                          Switch(
+                            value: _calcIsAnnuity,
+                            activeColor: AppColors.primary,
+                            onChanged: (val) =>
+                                setState(() => _calcIsAnnuity = val),
+                          ),
+                        ],
+                      );
+
+                      if (isCardNarrow) {
+                        return Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            titleRow,
+                            const SizedBox(height: 6),
+                            switcherRow,
+                          ],
+                        );
+                      }
+
+                      return Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Expanded(child: titleRow),
+                          const SizedBox(width: 8),
+                          switcherRow,
+                        ],
+                      );
+                    },
                   ),
-                ],
-              ),
-              Row(
-                children: [
-                  Expanded(
-                    child: Column(
+                  const SizedBox(height: 12),
+
+                  // Inputs Sliders: Pokok Pinjaman
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                          'Pokok Pinjaman: ${CurrencyFormatter.format(_calcLoanPrincipal)}',
+                          style: const TextStyle(
+                              fontSize: 12, fontWeight: FontWeight.w700)),
+                      Slider(
+                        value: _calcLoanPrincipal,
+                        min: 1000000,
+                        max: 500000000,
+                        divisions: 100,
+                        activeColor: AppColors.expense,
+                        onChanged: (val) =>
+                            setState(() => _calcLoanPrincipal = val),
+                      ),
+                    ],
+                  ),
+
+                  // Suku Bunga & Tenor
+                  if (isMobile) ...[
+                    Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('Suku Bunga: ${_calcLoanRate.toStringAsFixed(1)}% per tahun', style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w700)),
+                        Text(
+                            'Suku Bunga: ${_calcLoanRate.toStringAsFixed(1)}% per tahun',
+                            style: const TextStyle(
+                                fontSize: 12, fontWeight: FontWeight.w700)),
                         Slider(
                           value: _calcLoanRate,
                           min: 0,
                           max: 30,
                           divisions: 60,
                           activeColor: AppColors.warning,
-                          onChanged: (val) => setState(() => _calcLoanRate = val),
+                          onChanged: (val) =>
+                              setState(() => _calcLoanRate = val),
                         ),
                       ],
                     ),
-                  ),
-                  const SizedBox(width: 16),
-                  Expanded(
-                    child: Column(
+                    const SizedBox(height: 6),
+                    Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('Tenor: $_calcLoanTenor Bulan (${(_calcLoanTenor / 12).toStringAsFixed(1)} thn)', style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w700)),
+                        Text(
+                            'Tenor: $_calcLoanTenor Bulan (${(_calcLoanTenor / 12).toStringAsFixed(1)} thn)',
+                            style: const TextStyle(
+                                fontSize: 12, fontWeight: FontWeight.w700)),
                         Slider(
                           value: _calcLoanTenor.toDouble(),
                           min: 6,
                           max: 120,
                           divisions: 19,
                           activeColor: AppColors.primary,
-                          onChanged: (val) => setState(() => _calcLoanTenor = val.round()),
+                          onChanged: (val) =>
+                              setState(() => _calcLoanTenor = val.round()),
                         ),
                       ],
                     ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 14),
-
-              // Calculation Result Card
-              Container(
-                padding: const EdgeInsets.all(AppDimensions.paddingM),
-                decoration: BoxDecoration(
-                  color: AppColors.cardInner,
-                  borderRadius: BorderRadius.circular(AppDimensions.radiusButton),
-                  border: Border.all(color: AppColors.borderMedium, width: 1),
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                  ] else ...[
+                    Row(
                       children: [
-                        const Text('Angsuran per Bulan', style: TextStyle(fontSize: 11, color: AppColors.textMuted)),
-                        const SizedBox(height: 2),
-                        Text(
-                          CurrencyFormatter.format(loanResult.monthlyInstallment),
-                          style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w900, color: AppColors.expense),
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                  'Suku Bunga: ${_calcLoanRate.toStringAsFixed(1)}% per tahun',
+                                  style: const TextStyle(
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.w700)),
+                              Slider(
+                                value: _calcLoanRate,
+                                min: 0,
+                                max: 30,
+                                divisions: 60,
+                                activeColor: AppColors.warning,
+                                onChanged: (val) =>
+                                    setState(() => _calcLoanRate = val),
+                              ),
+                            ],
+                          ),
                         ),
-                      ],
-                    ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        const Text('Total Bunga Terbayar', style: TextStyle(fontSize: 11, color: AppColors.textMuted)),
-                        const SizedBox(height: 2),
-                        Text(
-                          CurrencyFormatter.format(loanResult.totalInterest),
-                          style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w800, color: AppColors.warning),
-                        ),
-                      ],
-                    ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: [
-                        const Text('Total Pembayaran', style: TextStyle(fontSize: 11, color: AppColors.textMuted)),
-                        const SizedBox(height: 2),
-                        Text(
-                          CurrencyFormatter.format(loanResult.totalPayment),
-                          style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w800, color: AppColors.textPrimary),
+                        const SizedBox(width: 16),
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                  'Tenor: $_calcLoanTenor Bulan (${(_calcLoanTenor / 12).toStringAsFixed(1)} thn)',
+                                  style: const TextStyle(
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.w700)),
+                              Slider(
+                                value: _calcLoanTenor.toDouble(),
+                                min: 6,
+                                max: 120,
+                                divisions: 19,
+                                activeColor: AppColors.primary,
+                                onChanged: (val) => setState(
+                                    () => _calcLoanTenor = val.round()),
+                              ),
+                            ],
+                          ),
                         ),
                       ],
                     ),
                   ],
-                ),
-              ),
-            ],
-          ),
-        ),
-        const SizedBox(height: 18),
+                  const SizedBox(height: 14),
 
-        // Sub-calculator 2: Compound Interest Investment Projection (DCA)
-        GlassNeumorphicCard(
-          stripeColor: AppColors.income,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Row(
-                children: [
-                  Icon(Icons.trending_up_rounded, color: AppColors.income, size: 20),
-                  SizedBox(width: 8),
-                  Text(
-                    'Kalkulator Bunga Majemuk & Proyeksi Investasi (DCA)',
-                    style: TextStyle(fontSize: 15.5, fontWeight: FontWeight.w800, color: AppColors.textPrimary),
+                  // Calculation Result Card
+                  Container(
+                    padding: const EdgeInsets.all(AppDimensions.paddingM),
+                    decoration: BoxDecoration(
+                      color: AppColors.cardInner,
+                      borderRadius:
+                          BorderRadius.circular(AppDimensions.radiusButton),
+                      border:
+                          Border.all(color: AppColors.borderMedium, width: 1),
+                    ),
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const Text('Angsuran / Bln',
+                                  style: TextStyle(
+                                      fontSize: 11,
+                                      color: AppColors.textMuted)),
+                              const SizedBox(height: 2),
+                              FittedBox(
+                                fit: BoxFit.scaleDown,
+                                alignment: Alignment.centerLeft,
+                                child: Text(
+                                  CurrencyFormatter.format(
+                                      loanResult.monthlyInstallment),
+                                  style: const TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w900,
+                                      color: AppColors.expense),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(width: 6),
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              const Text('Total Bunga',
+                                  style: TextStyle(
+                                      fontSize: 11,
+                                      color: AppColors.textMuted)),
+                              const SizedBox(height: 2),
+                              FittedBox(
+                                fit: BoxFit.scaleDown,
+                                alignment: Alignment.center,
+                                child: Text(
+                                  CurrencyFormatter.format(
+                                      loanResult.totalInterest),
+                                  style: const TextStyle(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w800,
+                                      color: AppColors.warning),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(width: 6),
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            children: [
+                              const Text('Total Bayar',
+                                  style: TextStyle(
+                                      fontSize: 11,
+                                      color: AppColors.textMuted)),
+                              const SizedBox(height: 2),
+                              FittedBox(
+                                fit: BoxFit.scaleDown,
+                                alignment: Alignment.centerRight,
+                                child: Text(
+                                  CurrencyFormatter.format(
+                                      loanResult.totalPayment),
+                                  style: const TextStyle(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w800,
+                                      color: AppColors.textPrimary),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ],
               ),
-              const SizedBox(height: 12),
+            ),
+            const SizedBox(height: 18),
 
-              Row(
+            // Sub-calculator 2: Compound Interest Investment Projection (DCA)
+            GlassNeumorphicCard(
+              stripeColor: AppColors.income,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Expanded(
-                    child: Column(
+                  const Row(
+                    children: [
+                      Icon(Icons.trending_up_rounded,
+                          color: AppColors.income, size: 20),
+                      SizedBox(width: 8),
+                      Expanded(
+                        child: Text(
+                          'Kalkulator Bunga Majemuk & Proyeksi Investasi (DCA)',
+                          style: TextStyle(
+                              fontSize: 15.5,
+                              fontWeight: FontWeight.w800,
+                              color: AppColors.textPrimary),
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 12),
+
+                  if (isMobile) ...[
+                    Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('Modal Awal: ${CurrencyFormatter.format(_calcInvestInitial)}', style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w700)),
+                        Text(
+                            'Modal Awal: ${CurrencyFormatter.format(_calcInvestInitial)}',
+                            style: const TextStyle(
+                                fontSize: 12, fontWeight: FontWeight.w700)),
                         Slider(
                           value: _calcInvestInitial,
                           min: 0,
                           max: 100000000,
                           divisions: 100,
                           activeColor: AppColors.income,
-                          onChanged: (val) => setState(() => _calcInvestInitial = val),
+                          onChanged: (val) =>
+                              setState(() => _calcInvestInitial = val),
                         ),
                       ],
                     ),
-                  ),
-                  const SizedBox(width: 16),
-                  Expanded(
-                    child: Column(
+                    const SizedBox(height: 6),
+                    Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('Investasi Rutin Bulanan: ${CurrencyFormatter.format(_calcInvestMonthly)}', style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w700)),
+                        Text(
+                            'Investasi Rutin Bulanan: ${CurrencyFormatter.format(_calcInvestMonthly)}',
+                            style: const TextStyle(
+                                fontSize: 12, fontWeight: FontWeight.w700)),
                         Slider(
                           value: _calcInvestMonthly,
                           min: 0,
                           max: 20000000,
                           divisions: 40,
                           activeColor: AppColors.cyan,
-                          onChanged: (val) => setState(() => _calcInvestMonthly = val),
+                          onChanged: (val) =>
+                              setState(() => _calcInvestMonthly = val),
                         ),
                       ],
                     ),
-                  ),
-                ],
-              ),
-              Row(
-                children: [
-                  Expanded(
-                    child: Column(
+                    const SizedBox(height: 6),
+                    Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('Ekspektasi Return Tahunan: ${_calcInvestReturn.toStringAsFixed(1)}%', style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w700)),
+                        Text(
+                            'Ekspektasi Return Tahunan: ${_calcInvestReturn.toStringAsFixed(1)}%',
+                            style: const TextStyle(
+                                fontSize: 12, fontWeight: FontWeight.w700)),
                         Slider(
                           value: _calcInvestReturn,
                           min: 1,
                           max: 30,
                           divisions: 58,
                           activeColor: AppColors.income,
-                          onChanged: (val) => setState(() => _calcInvestReturn = val),
+                          onChanged: (val) =>
+                              setState(() => _calcInvestReturn = val),
                         ),
                       ],
                     ),
-                  ),
-                  const SizedBox(width: 16),
-                  Expanded(
-                    child: Column(
+                    const SizedBox(height: 6),
+                    Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('Jangka Waktu: $_calcInvestYears Tahun', style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w700)),
+                        Text('Jangka Waktu: $_calcInvestYears Tahun',
+                            style: const TextStyle(
+                                fontSize: 12, fontWeight: FontWeight.w700)),
                         Slider(
                           value: _calcInvestYears.toDouble(),
                           min: 1,
                           max: 25,
                           divisions: 24,
                           activeColor: AppColors.primary,
-                          onChanged: (val) => setState(() => _calcInvestYears = val.round()),
+                          onChanged: (val) =>
+                              setState(() => _calcInvestYears = val.round()),
+                        ),
+                      ],
+                    ),
+                  ] else ...[
+                    Row(
+                      children: [
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                  'Modal Awal: ${CurrencyFormatter.format(_calcInvestInitial)}',
+                                  style: const TextStyle(
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.w700)),
+                              Slider(
+                                value: _calcInvestInitial,
+                                min: 0,
+                                max: 100000000,
+                                divisions: 100,
+                                activeColor: AppColors.income,
+                                onChanged: (val) =>
+                                    setState(() => _calcInvestInitial = val),
+                              ),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(width: 16),
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                  'Investasi Rutin Bulanan: ${CurrencyFormatter.format(_calcInvestMonthly)}',
+                                  style: const TextStyle(
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.w700)),
+                              Slider(
+                                value: _calcInvestMonthly,
+                                min: 0,
+                                max: 20000000,
+                                divisions: 40,
+                                activeColor: AppColors.cyan,
+                                onChanged: (val) =>
+                                    setState(() => _calcInvestMonthly = val),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                  'Ekspektasi Return Tahunan: ${_calcInvestReturn.toStringAsFixed(1)}%',
+                                  style: const TextStyle(
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.w700)),
+                              Slider(
+                                value: _calcInvestReturn,
+                                min: 1,
+                                max: 30,
+                                divisions: 58,
+                                activeColor: AppColors.income,
+                                onChanged: (val) =>
+                                    setState(() => _calcInvestReturn = val),
+                              ),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(width: 16),
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text('Jangka Waktu: $_calcInvestYears Tahun',
+                                  style: const TextStyle(
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.w700)),
+                              Slider(
+                                value: _calcInvestYears.toDouble(),
+                                min: 1,
+                                max: 25,
+                                divisions: 24,
+                                activeColor: AppColors.primary,
+                                onChanged: (val) => setState(
+                                    () => _calcInvestYears = val.round()),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                  const SizedBox(height: 14),
+
+                  // Compound Result Card
+                  Container(
+                    padding: const EdgeInsets.all(AppDimensions.paddingM),
+                    decoration: BoxDecoration(
+                      color: AppColors.cardInner,
+                      borderRadius:
+                          BorderRadius.circular(AppDimensions.radiusButton),
+                      border:
+                          Border.all(color: AppColors.borderMedium, width: 1),
+                    ),
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const Text('Nilai Akhir',
+                                  style: TextStyle(
+                                      fontSize: 11,
+                                      color: AppColors.textMuted)),
+                              const SizedBox(height: 2),
+                              FittedBox(
+                                fit: BoxFit.scaleDown,
+                                alignment: Alignment.centerLeft,
+                                child: Text(
+                                  CurrencyFormatter.format(
+                                      compoundResult.futureValue),
+                                  style: const TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w900,
+                                      color: AppColors.income),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(width: 6),
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              const Text('Modal Disetor',
+                                  style: TextStyle(
+                                      fontSize: 11,
+                                      color: AppColors.textMuted)),
+                              const SizedBox(height: 2),
+                              FittedBox(
+                                fit: BoxFit.scaleDown,
+                                alignment: Alignment.center,
+                                child: Text(
+                                  CurrencyFormatter.format(
+                                      compoundResult.totalInvested),
+                                  style: const TextStyle(
+                                      fontSize: 13,
+                                      fontWeight: FontWeight.w700),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(width: 6),
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            children: [
+                              const Text('Keuntungan',
+                                  style: TextStyle(
+                                      fontSize: 11,
+                                      color: AppColors.textMuted)),
+                              const SizedBox(height: 2),
+                              FittedBox(
+                                fit: BoxFit.scaleDown,
+                                alignment: Alignment.centerRight,
+                                child: Text(
+                                  '+${CurrencyFormatter.format(compoundResult.totalEarnings)}',
+                                  style: const TextStyle(
+                                      fontSize: 13,
+                                      fontWeight: FontWeight.w800,
+                                      color: AppColors.income),
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       ],
                     ),
                   ),
                 ],
               ),
-              const SizedBox(height: 14),
-
-              // Compound Result Card
-              Container(
-                padding: const EdgeInsets.all(AppDimensions.paddingM),
-                decoration: BoxDecoration(
-                  color: AppColors.cardInner,
-                  borderRadius: BorderRadius.circular(AppDimensions.radiusButton),
-                  border: Border.all(color: AppColors.borderMedium, width: 1),
-                ),
-                child: Column(
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const Text('Estimasi Nilai Akhir Portofolio', style: TextStyle(fontSize: 11, color: AppColors.textMuted)),
-                            const SizedBox(height: 2),
-                            Text(
-                              CurrencyFormatter.format(compoundResult.futureValue),
-                              style: const TextStyle(fontSize: 17, fontWeight: FontWeight.w900, color: AppColors.income),
-                            ),
-                          ],
-                        ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            const Text('Total Modal Disetor', style: TextStyle(fontSize: 11, color: AppColors.textMuted)),
-                            const SizedBox(height: 2),
-                            Text(
-                              CurrencyFormatter.format(compoundResult.totalInvested),
-                              style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w700),
-                            ),
-                          ],
-                        ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          children: [
-                            const Text('Keuntungan Bunga Majemuk', style: TextStyle(fontSize: 11, color: AppColors.textMuted)),
-                            const SizedBox(height: 2),
-                            Text(
-                              '+${CurrencyFormatter.format(compoundResult.totalEarnings)}',
-                              style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w800, color: AppColors.income),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-        ),
-      ],
+            ),
+          ],
+        );
+      },
     );
   }
 
@@ -1474,9 +1984,15 @@ class _PortfolioViewState extends State<PortfolioView> {
         children: [
           Icon(icon, size: 44, color: AppColors.textMuted.withOpacity(0.5)),
           const SizedBox(height: 12),
-          Text(title, style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w800, color: AppColors.textPrimary)),
+          Text(title,
+              style: const TextStyle(
+                  fontSize: 15,
+                  fontWeight: FontWeight.w800,
+                  color: AppColors.textPrimary)),
           const SizedBox(height: 4),
-          Text(subtitle, style: const TextStyle(fontSize: 12, color: AppColors.textMuted), textAlign: TextAlign.center),
+          Text(subtitle,
+              style: const TextStyle(fontSize: 12, color: AppColors.textMuted),
+              textAlign: TextAlign.center),
         ],
       ),
     );

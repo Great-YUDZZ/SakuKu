@@ -20,7 +20,8 @@ class InvestmentModel {
 
   const InvestmentModel(this.entity);
 
-  factory InvestmentModel.fromEntity(InvestmentEntity entity) => InvestmentModel(entity);
+  factory InvestmentModel.fromEntity(InvestmentEntity entity) =>
+      InvestmentModel(entity);
 
   factory InvestmentModel.fromMap(Map<String, dynamic> map) {
     return InvestmentModel(
@@ -32,11 +33,14 @@ class InvestmentModel {
         investedAmount: ((map[colInvestedAmount] as num?) ?? 0.0).toDouble(),
         currentValue: ((map[colCurrentValue] as num?) ?? 0.0).toDouble(),
         targetAmount: (map[colTargetAmount] as num?)?.toDouble(),
-        expectedReturnRate: ((map[colExpectedReturnRate] as num?) ?? 0.0).toDouble(),
-        startDate: DateTime.tryParse(map[colStartDate] as String? ?? '') ?? DateTime.now(),
+        expectedReturnRate:
+            ((map[colExpectedReturnRate] as num?) ?? 0.0).toDouble(),
+        startDate: DateTime.tryParse(map[colStartDate] as String? ?? '') ??
+            DateTime.now(),
         maturityDate: DateTime.tryParse(map[colMaturityDate] as String? ?? ''),
         notes: map[colNotes] as String?,
-        createdAt: DateTime.tryParse(map[colCreatedAt] as String? ?? '') ?? DateTime.now(),
+        createdAt: DateTime.tryParse(map[colCreatedAt] as String? ?? '') ??
+            DateTime.now(),
       ),
     );
   }

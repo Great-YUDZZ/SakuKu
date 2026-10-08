@@ -7,7 +7,8 @@ class AppTheme {
 
   static ThemeData get lightTheme {
     final baseTextTheme = Typography.material2021().black;
-    final textTheme = GoogleFonts.plusJakartaSansTextTheme(baseTextTheme).copyWith(
+    final textTheme =
+        GoogleFonts.plusJakartaSansTextTheme(baseTextTheme).copyWith(
       displayLarge: GoogleFonts.plusJakartaSans(
         color: AppColors.textPrimary,
         fontWeight: FontWeight.w800,

@@ -69,17 +69,20 @@ class BackupPayloadModel {
     }
 
     if (decoded is! Map<String, dynamic>) {
-      throw const FormatException('Payload file cadangan harus berupa JSON Object.');
+      throw const FormatException(
+          'Payload file cadangan harus berupa JSON Object.');
     }
 
     final appName = decoded['app_name'] as String?;
     if (appName != appIdentifier) {
-      throw const FormatException('File cadangan bukan berasal dari Local Financial Manager.');
+      throw const FormatException(
+          'File cadangan bukan berasal dari Local Financial Manager.');
     }
 
     final rawTransactions = decoded['transactions'];
     if (rawTransactions is! List) {
-      throw const FormatException('Data transaksi pada file cadangan tidak valid.');
+      throw const FormatException(
+          'Data transaksi pada file cadangan tidak valid.');
     }
 
     final List<Map<String, dynamic>> castedList = [];
@@ -89,7 +92,8 @@ class BackupPayloadModel {
       } else if (item is Map) {
         castedList.add(Map<String, dynamic>.from(item));
       } else {
-        throw const FormatException('Ditemukan item transaksi korup di file cadangan.');
+        throw const FormatException(
+            'Ditemukan item transaksi korup di file cadangan.');
       }
     }
 
@@ -109,7 +113,8 @@ class BackupPayloadModel {
       version: (decoded['version'] as int?) ?? currentSchemaVersion,
       appName: appName ?? appIdentifier,
       exportedAt: (decoded['exported_at'] as String?) ?? '',
-      transactionCount: (decoded['transaction_count'] as int?) ?? transactions.length,
+      transactionCount:
+          (decoded['transaction_count'] as int?) ?? transactions.length,
       checksum: calculatedChecksum,
       transactions: transactions,
     );

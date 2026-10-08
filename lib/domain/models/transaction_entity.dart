@@ -20,7 +20,8 @@ enum TransactionCategory {
   bills('Tagihan & Utilitas', Icons.receipt_long_rounded, Color(0xFF8B5CF6)),
   shopping('Belanja', Icons.shopping_bag_rounded, Color(0xFFEC4899)),
   entertainment('Hiburan', Icons.sports_esports_rounded, Color(0xFFA855F7)),
-  salary('Gaji & Upah', Icons.account_balance_wallet_rounded, Color(0xFF10B981)),
+  salary(
+      'Gaji & Upah', Icons.account_balance_wallet_rounded, Color(0xFF10B981)),
   business('Bisnis / Usaha', Icons.storefront_rounded, Color(0xFF06B6D4)),
   investment('Investasi', Icons.trending_up_rounded, Color(0xFF3B82F6)),
   health('Kesehatan', Icons.medical_services_rounded, Color(0xFFEF4444)),

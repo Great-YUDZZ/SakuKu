@@ -13,8 +13,7 @@ class DashboardViewModel extends ChangeNotifier {
     FinancialAnalysisService? analysisService,
   })  : _transactionRepository =
             transactionRepository ?? TransactionRepository(),
-        _analysisService =
-            analysisService ?? const FinancialAnalysisService();
+        _analysisService = analysisService ?? const FinancialAnalysisService();
 
   bool _isLoading = false;
   bool get isLoading => _isLoading;
@@ -43,8 +42,7 @@ class DashboardViewModel extends ChangeNotifier {
           await _transactionRepository.getMonthlySummary(_selectedMonth);
       final transactions =
           await _transactionRepository.getTransactionsByMonth(_selectedMonth);
-      final lifetime =
-          await _transactionRepository.getTotalLifetimeBalance();
+      final lifetime = await _transactionRepository.getTotalLifetimeBalance();
 
       final ratio = _analysisService.analyze(
         totalIncome: summary.totalIncome,

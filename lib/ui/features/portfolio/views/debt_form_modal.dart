@@ -63,7 +63,8 @@ class _DebtFormModalState extends State<DebtFormModal> {
     _dueDate = d?.dueDate ?? DateTime.now().add(const Duration(days: 30));
 
     _titleController = TextEditingController(text: d?.title ?? '');
-    _personController = TextEditingController(text: d?.personOrInstitution ?? '');
+    _personController =
+        TextEditingController(text: d?.personOrInstitution ?? '');
     _amountController = TextEditingController(
       text: d != null ? CurrencyFormatter.format(d.amount) : '',
     );
@@ -129,7 +130,9 @@ class _DebtFormModalState extends State<DebtFormModal> {
         ? CurrencyFormatter.parse(remainingRaw).clamp(0.0, amount)
         : amount;
 
-    final rate = double.tryParse(_interestRateController.text.replaceAll(',', '.')) ?? 0.0;
+    final rate =
+        double.tryParse(_interestRateController.text.replaceAll(',', '.')) ??
+            0.0;
 
     final entity = DebtEntity(
       id: widget.initialDebt?.id,
@@ -145,7 +148,9 @@ class _DebtFormModalState extends State<DebtFormModal> {
       startDate: _startDate,
       dueDate: _dueDate,
       status: remaining <= 0 ? DebtStatus.paid : DebtStatus.active,
-      notes: _notesController.text.trim().isNotEmpty ? _notesController.text.trim() : null,
+      notes: _notesController.text.trim().isNotEmpty
+          ? _notesController.text.trim()
+          : null,
       createdAt: widget.initialDebt?.createdAt ?? DateTime.now(),
     );
 
@@ -161,7 +166,8 @@ class _DebtFormModalState extends State<DebtFormModal> {
       ),
       decoration: const BoxDecoration(
         color: AppColors.background,
-        borderRadius: BorderRadius.vertical(top: Radius.circular(AppDimensions.radiusModal)),
+        borderRadius: BorderRadius.vertical(
+            top: Radius.circular(AppDimensions.radiusModal)),
       ),
       child: SafeArea(
         top: false,
@@ -188,16 +194,23 @@ class _DebtFormModalState extends State<DebtFormModal> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
-                    widget.initialDebt == null ? 'Catat Hutang / Piutang Baru' : 'Edit Catatan Pinjaman',
-                    style: const TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.w800,
-                      color: AppColors.textPrimary,
+                  Expanded(
+                    child: Text(
+                      widget.initialDebt == null
+                          ? 'Catat Hutang / Piutang Baru'
+                          : 'Edit Catatan Pinjaman',
+                      style: const TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w800,
+                        color: AppColors.textPrimary,
+                      ),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
                     ),
                   ),
                   IconButton(
-                    icon: const Icon(Icons.close_rounded, size: 20, color: AppColors.textMuted),
+                    icon: const Icon(Icons.close_rounded,
+                        size: 20, color: AppColors.textMuted),
                     onPressed: () => Navigator.of(context).pop(),
                   ),
                 ],
@@ -208,7 +221,8 @@ class _DebtFormModalState extends State<DebtFormModal> {
               Container(
                 decoration: BoxDecoration(
                   color: AppColors.cardInner,
-                  borderRadius: BorderRadius.circular(AppDimensions.radiusButton),
+                  borderRadius:
+                      BorderRadius.circular(AppDimensions.radiusButton),
                   border: Border.all(color: AppColors.borderMedium, width: 1.0),
                 ),
                 padding: const EdgeInsets.all(3),
@@ -251,7 +265,9 @@ class _DebtFormModalState extends State<DebtFormModal> {
               // Pihak Terkait (Kreditur / Debitur)
               GlassNeumorphicInput(
                 controller: _personController,
-                labelText: _type == DebtType.debt ? 'Nama Pemberi Pinjaman / Bank' : 'Nama Peminjam',
+                labelText: _type == DebtType.debt
+                    ? 'Nama Pemberi Pinjaman / Bank'
+                    : 'Nama Peminjam',
                 hintText: 'Contoh: Bank BCA, Budi, Kredivo',
                 prefixIcon: const Icon(Icons.person_outline_rounded),
               ),
@@ -275,7 +291,8 @@ class _DebtFormModalState extends State<DebtFormModal> {
                     ),
                   );
                   if (_remainingController.text.isEmpty) {
-                    _remainingController.text = CurrencyFormatter.format(numVal);
+                    _remainingController.text =
+                        CurrencyFormatter.format(numVal);
                   }
                 },
               ),
@@ -310,7 +327,8 @@ class _DebtFormModalState extends State<DebtFormModal> {
                       labelText: 'Suku Bunga (%/thn)',
                       hintText: '0',
                       prefixIcon: const Icon(Icons.percent_rounded),
-                      keyboardType: const TextInputType.numberWithOptions(decimal: true),
+                      keyboardType:
+                          const TextInputType.numberWithOptions(decimal: true),
                     ),
                   ),
                   const SizedBox(width: 10),
@@ -332,25 +350,32 @@ class _DebtFormModalState extends State<DebtFormModal> {
                           padding: const EdgeInsets.symmetric(horizontal: 10),
                           decoration: BoxDecoration(
                             color: AppColors.cardInner,
-                            borderRadius: BorderRadius.circular(AppDimensions.radiusInput),
-                            border: Border.all(color: AppColors.borderMedium, width: 1),
+                            borderRadius: BorderRadius.circular(
+                                AppDimensions.radiusInput),
+                            border: Border.all(
+                                color: AppColors.borderMedium, width: 1),
                           ),
                           child: DropdownButtonHideUnderline(
                             child: DropdownButton<InterestType>(
                               value: _interestType,
                               isExpanded: true,
-                              icon: const Icon(Icons.arrow_drop_down, color: AppColors.textSecondary),
+                              icon: const Icon(Icons.arrow_drop_down,
+                                  color: AppColors.textSecondary),
                               items: InterestType.values.map((t) {
                                 return DropdownMenuItem(
                                   value: t,
                                   child: Text(
                                     t.label,
-                                    style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w600),
+                                    style: const TextStyle(
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.w600),
                                   ),
                                 );
                               }).toList(),
                               onChanged: (val) {
-                                if (val != null) setState(() => _interestType = val);
+                                if (val != null) {
+                                  setState(() => _interestType = val);
+                                }
                               },
                             ),
                           ),
@@ -464,7 +489,9 @@ class _DebtFormModalState extends State<DebtFormModal> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(icon, size: 14, color: isSelected ? activeColor : AppColors.textSecondary),
+            Icon(icon,
+                size: 14,
+                color: isSelected ? activeColor : AppColors.textSecondary),
             const SizedBox(width: 6),
             Text(
               label,
@@ -506,17 +533,25 @@ class _DebtFormModalState extends State<DebtFormModal> {
               color: AppColors.cardInner,
               borderRadius: BorderRadius.circular(AppDimensions.radiusInput),
               border: Border.all(
-                color: isDue ? AppColors.expense.withOpacity(0.5) : AppColors.borderMedium,
+                color: isDue
+                    ? AppColors.expense.withOpacity(0.5)
+                    : AppColors.borderMedium,
                 width: 1,
               ),
             ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
-                  DateFormatter.formatShort(date),
-                  style: const TextStyle(fontSize: 12.5, fontWeight: FontWeight.w700),
+                Expanded(
+                  child: Text(
+                    DateFormatter.formatShort(date),
+                    style: const TextStyle(
+                        fontSize: 12.5, fontWeight: FontWeight.w700),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  ),
                 ),
+                const SizedBox(width: 4),
                 Icon(
                   Icons.calendar_month_rounded,
                   size: 16,

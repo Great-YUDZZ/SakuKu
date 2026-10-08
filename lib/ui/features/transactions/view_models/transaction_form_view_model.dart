@@ -40,7 +40,8 @@ class TransactionFormViewModel extends ChangeNotifier {
 
   void setType(TransactionType newType) {
     _type = newType;
-    if (_type == TransactionType.income && _category == TransactionCategory.food) {
+    if (_type == TransactionType.income &&
+        _category == TransactionCategory.food) {
       _category = TransactionCategory.salary;
     } else if (_type == TransactionType.expense &&
         _category == TransactionCategory.salary) {

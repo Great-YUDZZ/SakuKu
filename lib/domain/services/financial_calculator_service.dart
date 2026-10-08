@@ -145,7 +145,8 @@ class FinancialCalculatorService {
 
     final double monthlyRate = (annualInterestRate / 100.0) / 12.0;
     final double factor = math.pow(1 + monthlyRate, tenorMonths).toDouble();
-    final double monthlyInstallment = principal * ((monthlyRate * factor) / (factor - 1));
+    final double monthlyInstallment =
+        principal * ((monthlyRate * factor) / (factor - 1));
     final double totalPayment = monthlyInstallment * tenorMonths;
     final double totalInterest = totalPayment - principal;
 

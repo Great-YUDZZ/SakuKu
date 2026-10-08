@@ -25,9 +25,10 @@ void main() {
       ),
     ];
 
-    test('Harus berhasil mengekspor dan mem-parse kembali payload cadangan yang valid', () {
-      final payload =
-          BackupPayloadModel.createFromEntities(sampleTransactions);
+    test(
+        'Harus berhasil mengekspor dan mem-parse kembali payload cadangan yang valid',
+        () {
+      final payload = BackupPayloadModel.createFromEntities(sampleTransactions);
       final jsonString = payload.toJsonString();
 
       final parsed = BackupPayloadModel.fromJsonString(jsonString);
@@ -37,12 +38,14 @@ void main() {
       expect(parsed.transactions.length, equals(2));
       expect(parsed.transactions.first.description, equals('Gaji Bulanan'));
       expect(parsed.transactions.first.amount, equals(8000000.0));
-      expect(parsed.transactions.last.description, equals('Belanja Supermarket'));
+      expect(
+          parsed.transactions.last.description, equals('Belanja Supermarket'));
     });
 
-    test('Harus melempar FormatException jika checksum SHA-256 tidak cocok (data dimanipulasi)', () {
-      final payload =
-          BackupPayloadModel.createFromEntities(sampleTransactions);
+    test(
+        'Harus melempar FormatException jika checksum SHA-256 tidak cocok (data dimanipulasi)',
+        () {
+      final payload = BackupPayloadModel.createFromEntities(sampleTransactions);
       final map = payload.toMap();
 
       // Memanipulasi nominal secara manual tanpa memperbarui checksum
@@ -58,7 +61,8 @@ void main() {
       );
     });
 
-    test('Harus menolak file cadangan jika bukan dari LocalFinancialManager', () {
+    test('Harus menolak file cadangan jika bukan dari LocalFinancialManager',
+        () {
       const invalidAppJson = '''
       {
         "version": 1,

@@ -212,12 +212,18 @@ class _FinancialStatisticsTableState extends State<FinancialStatisticsTable> {
                 color: isSelected ? activeColor : AppColors.textSecondary,
               ),
               const SizedBox(width: 5),
-              Text(
-                label,
-                style: TextStyle(
-                  color: isSelected ? activeColor : AppColors.textSecondary,
-                  fontSize: 12,
-                  fontWeight: isSelected ? FontWeight.w700 : FontWeight.w500,
+              Flexible(
+                child: FittedBox(
+                  fit: BoxFit.scaleDown,
+                  child: Text(
+                    label,
+                    style: TextStyle(
+                      color: isSelected ? activeColor : AppColors.textSecondary,
+                      fontSize: 12,
+                      fontWeight:
+                          isSelected ? FontWeight.w700 : FontWeight.w500,
+                    ),
+                  ),
                 ),
               ),
             ],
@@ -315,7 +321,8 @@ class _FinancialStatisticsTableState extends State<FinancialStatisticsTable> {
                         const DataCell(
                           Text(
                             'Total Akumulasi Nominal',
-                            style: TextStyle(fontWeight: FontWeight.w600, fontSize: 13),
+                            style: TextStyle(
+                                fontWeight: FontWeight.w600, fontSize: 13),
                           ),
                         ),
                         DataCell(
@@ -342,7 +349,9 @@ class _FinancialStatisticsTableState extends State<FinancialStatisticsTable> {
                           Text(
                             CurrencyFormatter.format(balance),
                             style: TextStyle(
-                              color: balance >= 0 ? AppColors.primary : AppColors.expense,
+                              color: balance >= 0
+                                  ? AppColors.primary
+                                  : AppColors.expense,
                               fontWeight: FontWeight.w800,
                               fontSize: 13,
                             ),
@@ -355,15 +364,19 @@ class _FinancialStatisticsTableState extends State<FinancialStatisticsTable> {
                         const DataCell(
                           Text(
                             'Frekuensi Transaksi',
-                            style: TextStyle(fontWeight: FontWeight.w600, fontSize: 13),
+                            style: TextStyle(
+                                fontWeight: FontWeight.w600, fontSize: 13),
                           ),
                         ),
-                        DataCell(Text('$incomeCount transaksi', style: const TextStyle(fontSize: 13))),
-                        DataCell(Text('$expenseCount transaksi', style: const TextStyle(fontSize: 13))),
+                        DataCell(Text('$incomeCount transaksi',
+                            style: const TextStyle(fontSize: 13))),
+                        DataCell(Text('$expenseCount transaksi',
+                            style: const TextStyle(fontSize: 13))),
                         DataCell(
                           Text(
                             '${incomeCount + expenseCount} total aktivitas',
-                            style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w600),
+                            style: const TextStyle(
+                                fontSize: 13, fontWeight: FontWeight.w600),
                           ),
                         ),
                       ],
@@ -373,18 +386,23 @@ class _FinancialStatisticsTableState extends State<FinancialStatisticsTable> {
                         const DataCell(
                           Text(
                             'Rata-rata per Transaksi',
-                            style: TextStyle(fontWeight: FontWeight.w600, fontSize: 13),
+                            style: TextStyle(
+                                fontWeight: FontWeight.w600, fontSize: 13),
                           ),
                         ),
                         DataCell(
                           Text(
-                            incomeCount > 0 ? CurrencyFormatter.format(avgIncome) : '-',
+                            incomeCount > 0
+                                ? CurrencyFormatter.format(avgIncome)
+                                : '-',
                             style: const TextStyle(fontSize: 13),
                           ),
                         ),
                         DataCell(
                           Text(
-                            expenseCount > 0 ? CurrencyFormatter.format(avgExpense) : '-',
+                            expenseCount > 0
+                                ? CurrencyFormatter.format(avgExpense)
+                                : '-',
                             style: const TextStyle(fontSize: 13),
                           ),
                         ),
@@ -393,7 +411,8 @@ class _FinancialStatisticsTableState extends State<FinancialStatisticsTable> {
                             totalIncome > 0
                                 ? 'Rasio Simpan: ${((balance / totalIncome) * 100).toStringAsFixed(1)}%'
                                 : '-',
-                            style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w600),
+                            style: const TextStyle(
+                                fontSize: 13, fontWeight: FontWeight.w600),
                           ),
                         ),
                       ],
@@ -403,19 +422,26 @@ class _FinancialStatisticsTableState extends State<FinancialStatisticsTable> {
                         const DataCell(
                           Text(
                             'Transaksi Terbesar (Max)',
-                            style: TextStyle(fontWeight: FontWeight.w600, fontSize: 13),
+                            style: TextStyle(
+                                fontWeight: FontWeight.w600, fontSize: 13),
                           ),
                         ),
                         DataCell(
                           Text(
-                            maxIncome > 0 ? CurrencyFormatter.format(maxIncome) : '-',
-                            style: const TextStyle(fontSize: 13, color: AppColors.income),
+                            maxIncome > 0
+                                ? CurrencyFormatter.format(maxIncome)
+                                : '-',
+                            style: const TextStyle(
+                                fontSize: 13, color: AppColors.income),
                           ),
                         ),
                         DataCell(
                           Text(
-                            maxExpense > 0 ? CurrencyFormatter.format(maxExpense) : '-',
-                            style: const TextStyle(fontSize: 13, color: AppColors.expense),
+                            maxExpense > 0
+                                ? CurrencyFormatter.format(maxExpense)
+                                : '-',
+                            style: const TextStyle(
+                                fontSize: 13, color: AppColors.expense),
                           ),
                         ),
                         DataCell(
@@ -424,7 +450,9 @@ class _FinancialStatisticsTableState extends State<FinancialStatisticsTable> {
                             style: TextStyle(
                               fontSize: 12.5,
                               fontWeight: FontWeight.w700,
-                              color: balance >= 0 ? AppColors.income : AppColors.expense,
+                              color: balance >= 0
+                                  ? AppColors.income
+                                  : AppColors.expense,
                             ),
                           ),
                         ),
@@ -455,9 +483,7 @@ class _FinancialStatisticsTableState extends State<FinancialStatisticsTable> {
           child: Column(
             children: [
               Icon(
-                isIncome
-                    ? Icons.savings_outlined
-                    : Icons.shopping_bag_outlined,
+                isIncome ? Icons.savings_outlined : Icons.shopping_bag_outlined,
                 size: 40,
                 color: AppColors.textMuted.withOpacity(0.5),
               ),
@@ -569,7 +595,8 @@ class _FinancialStatisticsTableState extends State<FinancialStatisticsTable> {
                                     color: cat.color.withOpacity(0.12),
                                     borderRadius: BorderRadius.circular(6),
                                   ),
-                                  child: Icon(cat.icon, size: 14, color: cat.color),
+                                  child: Icon(cat.icon,
+                                      size: 14, color: cat.color),
                                 ),
                                 const SizedBox(width: 8),
                                 Text(
@@ -611,9 +638,11 @@ class _FinancialStatisticsTableState extends State<FinancialStatisticsTable> {
                                   child: ClipRRect(
                                     borderRadius: BorderRadius.circular(2),
                                     child: LinearProgressIndicator(
-                                      value: (stat.percentage / 100.0).clamp(0.0, 1.0),
+                                      value: (stat.percentage / 100.0)
+                                          .clamp(0.0, 1.0),
                                       backgroundColor: const Color(0xFFE2E8F0),
-                                      valueColor: AlwaysStoppedAnimation<Color>(cat.color),
+                                      valueColor: AlwaysStoppedAnimation<Color>(
+                                          cat.color),
                                       minHeight: 5,
                                     ),
                                   ),
@@ -688,7 +717,8 @@ class _FinancialStatisticsTableState extends State<FinancialStatisticsTable> {
                         DataCell(
                           Text(
                             totalCount > 0
-                                ? CurrencyFormatter.format(totalAmount / totalCount)
+                                ? CurrencyFormatter.format(
+                                    totalAmount / totalCount)
                                 : '-',
                             style: const TextStyle(
                               fontSize: 12.5,

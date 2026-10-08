@@ -54,7 +54,8 @@ class _FinancialCashflowChartState extends State<FinancialCashflowChart> {
           points = await _repository.getDailyCashFlow(widget.selectedMonth);
           break;
         case TimeGranularity.monthly:
-          points = await _repository.getMonthlyCashFlow(widget.selectedMonth.year);
+          points =
+              await _repository.getMonthlyCashFlow(widget.selectedMonth.year);
           break;
         case TimeGranularity.yearly:
           points = await _repository.getYearlyCashFlow();
@@ -277,7 +278,8 @@ class _FinancialCashflowChartState extends State<FinancialCashflowChart> {
               Text(
                 label,
                 style: TextStyle(
-                  color: isSelected ? AppColors.primary : AppColors.textSecondary,
+                  color:
+                      isSelected ? AppColors.primary : AppColors.textSecondary,
                   fontSize: 12,
                   fontWeight: isSelected ? FontWeight.w700 : FontWeight.w500,
                 ),
@@ -302,15 +304,19 @@ class _FinancialCashflowChartState extends State<FinancialCashflowChart> {
         const chartHeight = 280.0;
 
         return MouseRegion(
-          onHover: (event) => _handlePointerMove(event.localPosition, chartWidth),
+          onHover: (event) =>
+              _handlePointerMove(event.localPosition, chartWidth),
           onExit: (_) => setState(() {
             _hoveredIndex = null;
             _hoverPosition = null;
           }),
           child: GestureDetector(
-            onPanDown: (details) => _handlePointerMove(details.localPosition, chartWidth),
-            onPanUpdate: (details) => _handlePointerMove(details.localPosition, chartWidth),
-            onTapUp: (details) => _handlePointerMove(details.localPosition, chartWidth),
+            onPanDown: (details) =>
+                _handlePointerMove(details.localPosition, chartWidth),
+            onPanUpdate: (details) =>
+                _handlePointerMove(details.localPosition, chartWidth),
+            onTapUp: (details) =>
+                _handlePointerMove(details.localPosition, chartWidth),
             child: Stack(
               clipBehavior: Clip.none,
               children: [
@@ -549,7 +555,8 @@ class _FinancialCashflowChartState extends State<FinancialCashflowChart> {
         );
 
         final toggleButton = TextButton.icon(
-          onPressed: () => setState(() => _showDetailsTable = !_showDetailsTable),
+          onPressed: () =>
+              setState(() => _showDetailsTable = !_showDetailsTable),
           style: TextButton.styleFrom(
             padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
             visualDensity: VisualDensity.compact,
@@ -692,14 +699,17 @@ class _FinancialCashflowChartState extends State<FinancialCashflowChart> {
         rows: _dataPoints.map((pt) {
           return DataRow(
             cells: [
-              DataCell(Text(pt.label, style: const TextStyle(fontSize: 12.5, fontWeight: FontWeight.w600))),
+              DataCell(Text(pt.label,
+                  style: const TextStyle(
+                      fontSize: 12.5, fontWeight: FontWeight.w600))),
               DataCell(
                 Text(
                   pt.income > 0 ? CurrencyFormatter.format(pt.income) : '-',
                   style: TextStyle(
                     fontSize: 12.5,
                     fontWeight: FontWeight.w700,
-                    color: pt.income > 0 ? AppColors.income : AppColors.textMuted,
+                    color:
+                        pt.income > 0 ? AppColors.income : AppColors.textMuted,
                   ),
                 ),
               ),
@@ -709,7 +719,9 @@ class _FinancialCashflowChartState extends State<FinancialCashflowChart> {
                   style: TextStyle(
                     fontSize: 12.5,
                     fontWeight: FontWeight.w700,
-                    color: pt.expense > 0 ? AppColors.expense : AppColors.textMuted,
+                    color: pt.expense > 0
+                        ? AppColors.expense
+                        : AppColors.textMuted,
                   ),
                 ),
               ),
@@ -719,7 +731,9 @@ class _FinancialCashflowChartState extends State<FinancialCashflowChart> {
                   style: TextStyle(
                     fontSize: 12.5,
                     fontWeight: FontWeight.w800,
-                    color: pt.netBalance >= 0 ? AppColors.primary : AppColors.expense,
+                    color: pt.netBalance >= 0
+                        ? AppColors.primary
+                        : AppColors.expense,
                   ),
                 ),
               ),
@@ -754,7 +768,8 @@ class _BiDirectionalCashflowPainter extends CustomPainter {
 
     final chartWidth = size.width - leftPadding - rightPadding;
     final chartHeight = size.height - topPadding - bottomPadding;
-    final zeroY = topPadding + (chartHeight / 2.0); // Baseline in the vertical center
+    final zeroY =
+        topPadding + (chartHeight / 2.0); // Baseline in the vertical center
 
     // Calculate maximum absolute value across income and expense to scale Y
     double maxVal = 0.0;
@@ -784,14 +799,20 @@ class _BiDirectionalCashflowPainter extends CustomPainter {
     final topGridY = zeroY - (halfHeight * 0.6);
     final bottomGridY = zeroY + (halfHeight * 0.6);
 
-    canvas.drawLine(Offset(leftPadding, topGridY), Offset(size.width - rightPadding, topGridY), gridPaint);
-    canvas.drawLine(Offset(leftPadding, zeroY), Offset(size.width - rightPadding, zeroY), zeroLinePaint);
-    canvas.drawLine(Offset(leftPadding, bottomGridY), Offset(size.width - rightPadding, bottomGridY), gridPaint);
+    canvas.drawLine(Offset(leftPadding, topGridY),
+        Offset(size.width - rightPadding, topGridY), gridPaint);
+    canvas.drawLine(Offset(leftPadding, zeroY),
+        Offset(size.width - rightPadding, zeroY), zeroLinePaint);
+    canvas.drawLine(Offset(leftPadding, bottomGridY),
+        Offset(size.width - rightPadding, bottomGridY), gridPaint);
 
     // Y Axis Numerical Labels
-    _drawYAxisLabel(canvas, '+${_formatCompactCurrency(maxVal * 0.6)}', Offset(leftPadding - 8, topGridY - 6), AppColors.income);
-    _drawYAxisLabel(canvas, 'Rp 0', Offset(leftPadding - 8, zeroY - 6), AppColors.textMuted);
-    _drawYAxisLabel(canvas, '-${_formatCompactCurrency(maxVal * 0.6)}', Offset(leftPadding - 8, bottomGridY - 6), AppColors.expense);
+    _drawYAxisLabel(canvas, '+${_formatCompactCurrency(maxVal * 0.6)}',
+        Offset(leftPadding - 8, topGridY - 6), AppColors.income);
+    _drawYAxisLabel(canvas, 'Rp 0', Offset(leftPadding - 8, zeroY - 6),
+        AppColors.textMuted);
+    _drawYAxisLabel(canvas, '-${_formatCompactCurrency(maxVal * 0.6)}',
+        Offset(leftPadding - 8, bottomGridY - 6), AppColors.expense);
 
     // 2. Draw Bi-Directional Bars: Income (Upward), Expense (Downward)
     final barWidth = math.max(3.0, math.min(18.0, (chartWidth / count) * 0.5));
@@ -814,7 +835,8 @@ class _BiDirectionalCashflowPainter extends CustomPainter {
       if (pt.income > 0) {
         final barHeight = pt.income * scaleY;
         final rect = RRect.fromRectAndCorners(
-          Rect.fromLTWH(x - (barWidth / 2.0), zeroY - barHeight, barWidth, barHeight),
+          Rect.fromLTWH(
+              x - (barWidth / 2.0), zeroY - barHeight, barWidth, barHeight),
           topLeft: const Radius.circular(3),
           topRight: const Radius.circular(3),
         );
@@ -837,9 +859,12 @@ class _BiDirectionalCashflowPainter extends CustomPainter {
       netBalancePoints.add(Offset(x, netY));
 
       // X Axis Label (decimated for readability)
-      final shouldDrawXLabel = (count <= 12) || (i % math.max(1, (count / 6).round()) == 0) || (i == count - 1);
+      final shouldDrawXLabel = (count <= 12) ||
+          (i % math.max(1, (count / 6).round()) == 0) ||
+          (i == count - 1);
       if (shouldDrawXLabel) {
-        _drawXAxisLabel(canvas, pt.label, Offset(x, size.height - bottomPadding + 8));
+        _drawXAxisLabel(
+            canvas, pt.label, Offset(x, size.height - bottomPadding + 8));
       }
     }
 
@@ -899,7 +924,8 @@ class _BiDirectionalCashflowPainter extends CustomPainter {
           ..color = AppColors.primary.withOpacity(0.3)
           ..style = PaintingStyle.fill;
         canvas.drawCircle(activeNetPos, 8.0, glowPaint);
-        canvas.drawCircle(activeNetPos, 4.5, Paint()..color = AppColors.primary);
+        canvas.drawCircle(
+            activeNetPos, 4.5, Paint()..color = AppColors.primary);
       }
     }
   }
@@ -937,7 +963,8 @@ class _BiDirectionalCashflowPainter extends CustomPainter {
       textAlign: TextAlign.center,
     );
     textPainter.layout();
-    textPainter.paint(canvas, Offset(offset.dx - (textPainter.width / 2.0), offset.dy));
+    textPainter.paint(
+        canvas, Offset(offset.dx - (textPainter.width / 2.0), offset.dy));
   }
 
   String _formatCompactCurrency(double amount) {

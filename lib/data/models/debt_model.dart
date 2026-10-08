@@ -34,11 +34,14 @@ class DebtModel {
         remainingAmount: ((map[colRemainingAmount] as num?) ?? 0.0).toDouble(),
         interestRate: ((map[colInterestRate] as num?) ?? 0.0).toDouble(),
         interestType: InterestType.fromKey(map[colInterestType] as String?),
-        startDate: DateTime.tryParse(map[colStartDate] as String? ?? '') ?? DateTime.now(),
-        dueDate: DateTime.tryParse(map[colDueDate] as String? ?? '') ?? DateTime.now(),
+        startDate: DateTime.tryParse(map[colStartDate] as String? ?? '') ??
+            DateTime.now(),
+        dueDate: DateTime.tryParse(map[colDueDate] as String? ?? '') ??
+            DateTime.now(),
         status: DebtStatus.fromKey(map[colStatus] as String?),
         notes: map[colNotes] as String?,
-        createdAt: DateTime.tryParse(map[colCreatedAt] as String? ?? '') ?? DateTime.now(),
+        createdAt: DateTime.tryParse(map[colCreatedAt] as String? ?? '') ??
+            DateTime.now(),
       ),
     );
   }

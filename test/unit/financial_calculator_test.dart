@@ -5,7 +5,9 @@ void main() {
   group('FinancialCalculatorService Tests', () {
     const service = FinancialCalculatorService();
 
-    test('Bunga Flat: menghitung pokok, bunga, dan angsuran bulanan dengan tepat', () {
+    test(
+        'Bunga Flat: menghitung pokok, bunga, dan angsuran bulanan dengan tepat',
+        () {
       // Pinjaman 12.000.000, Bunga 10% per tahun, Tenor 12 bulan (1 tahun)
       final result = service.calculateFlatLoan(
         principal: 12000000,
@@ -23,7 +25,9 @@ void main() {
       expect(result.monthlyInterest, equals(100000));
     });
 
-    test('Bunga Anuitas: menghitung cicilan bulanan efektif dengan rumus anuitas', () {
+    test(
+        'Bunga Anuitas: menghitung cicilan bulanan efektif dengan rumus anuitas',
+        () {
       // Pinjaman 100.000.000, Bunga 12% per tahun (1% per bulan), Tenor 12 bulan
       final result = service.calculateEffectiveAnnuity(
         principal: 100000000,
@@ -39,7 +43,9 @@ void main() {
       expect(result.totalInterest, greaterThan(0));
     });
 
-    test('Bunga Majemuk (Compound Interest DCA): proyeksi nilai masa depan investasi', () {
+    test(
+        'Bunga Majemuk (Compound Interest DCA): proyeksi nilai masa depan investasi',
+        () {
       // Modal awal 10.000.000, Nabung rutin 1.000.000 / bln, Return 12% / thn, 2 tahun
       final result = service.calculateCompoundGrowth(
         initialDeposit: 10000000,
@@ -60,21 +66,28 @@ void main() {
 
     test('DueUrgency: mengevaluasi tingkat urgensi jatuh tempo pinjaman', () {
       // Kasus Lunas
-      expect(service.calculateDueUrgency(daysRemaining: 10, isPaid: true), equals(DueUrgency.paid));
+      expect(service.calculateDueUrgency(daysRemaining: 10, isPaid: true),
+          equals(DueUrgency.paid));
 
       // Kasus Lewat Jatuh Tempo (Overdue)
-      expect(service.calculateDueUrgency(daysRemaining: -1, isPaid: false), equals(DueUrgency.overdue));
+      expect(service.calculateDueUrgency(daysRemaining: -1, isPaid: false),
+          equals(DueUrgency.overdue));
 
       // Kasus Kritis (<= 7 hari)
-      expect(service.calculateDueUrgency(daysRemaining: 3, isPaid: false), equals(DueUrgency.critical));
-      expect(service.calculateDueUrgency(daysRemaining: 7, isPaid: false), equals(DueUrgency.critical));
+      expect(service.calculateDueUrgency(daysRemaining: 3, isPaid: false),
+          equals(DueUrgency.critical));
+      expect(service.calculateDueUrgency(daysRemaining: 7, isPaid: false),
+          equals(DueUrgency.critical));
 
       // Kasus Peringatan (8 - 30 hari)
-      expect(service.calculateDueUrgency(daysRemaining: 15, isPaid: false), equals(DueUrgency.warning));
-      expect(service.calculateDueUrgency(daysRemaining: 30, isPaid: false), equals(DueUrgency.warning));
+      expect(service.calculateDueUrgency(daysRemaining: 15, isPaid: false),
+          equals(DueUrgency.warning));
+      expect(service.calculateDueUrgency(daysRemaining: 30, isPaid: false),
+          equals(DueUrgency.warning));
 
       // Kasus Aman (> 30 hari)
-      expect(service.calculateDueUrgency(daysRemaining: 45, isPaid: false), equals(DueUrgency.safe));
+      expect(service.calculateDueUrgency(daysRemaining: 45, isPaid: false),
+          equals(DueUrgency.safe));
     });
   });
 }
